@@ -13,4 +13,6 @@
 		<button class="btn btn-danger">Delete profile</button>
 		
 		
+<?php require 'chat.php'; ?>
+
 <?php require 'footer.php'; ?>

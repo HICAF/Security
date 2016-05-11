@@ -7,10 +7,20 @@ $(document).ready(function(){
   });
 });
 
+// Gif approval stuff
 $(".gif-accepted").click(function(){
 	alert("Accepted");
 });
 
 $(".gif-rejected").click(function(){
 	alert("Narh, that one sucked anyways.");
+});
+
+// Chat stuff
+$(".chat-closer").click(function(){
+	$(".chat").hide();
+});
+
+$(".chat-trigger").click(function(){
+	$(".chat").toggle();
 });

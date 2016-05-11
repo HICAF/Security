@@ -42,10 +42,45 @@ body {
     width: 100%;
     margin-bottom: 2rem; }
 
+.chat-trigger {
+  display: none;
+  position: absolute;
+  right: 4rem;
+  bottom: 4rem;
+  cursor: pointer; }
+  .chat-trigger:hover {
+    text-shadow: 0px 0px 5px blue; }
+
+.chat {
+  position: absolute;
+  bottom: 0px;
+  left: 4rem;
+  z-index: 9999;
+  background: #f8f8f8;
+  border: 1px solid #f8f8f8;
+  width: 33%;
+  min-width: 250px;
+  height: 50%;
+  min-height: 250px; }
+  .chat h3 {
+    background: #e8e8e8;
+    margin-top: 0;
+    padding: .5rem; }
+  .chat textarea {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border: 1px solid #e7e7e7; }
+  .chat .messages {
+    padding: .5rem; }
+
 footer {
   margin: 4rem 3rem 0;
   text-align: center;
   border-top: 1px solid #eee;
   color: #eee; }
+
+.right {
+  float: right; }
 
 /*# sourceMappingURL=style.css.map */
