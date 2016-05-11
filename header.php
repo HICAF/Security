@@ -29,7 +29,7 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </button>
-		      <a class="navbar-brand" href="#"><i class="fa fa-beer" aria-hidden="true"></i> Gif wall</a>
+		      <a class="navbar-brand" href="index.php"><i class="fa fa-beer" aria-hidden="true"></i> Gif wall</a>
 		    </div>
 
 		    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -40,7 +40,7 @@
 						<!-- TODO only show to admins -->
 						<li><a href="gifaccept.php">Approve Gifs</a></li>
 		        <li>
-							<a href="index.php">Profile <i class="fa fa-user" aria-hidden="true"></i></a>
+							<a href="profile.php">Profile <i class="fa fa-user" aria-hidden="true"></i></a>
 						</li>
 		      </ul>
 		    </div><!-- /.navbar-collapse -->
