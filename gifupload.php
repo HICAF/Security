@@ -28,5 +28,6 @@
 		<a href="gifwall.php">See Gif Wall</a>
 		
 		
+<?php require 'chat.php'; ?>
 		
 <?php require 'footer.php'; ?>

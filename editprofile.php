@@ -40,5 +40,6 @@
 			<a href="profile.php">Nevermind.</a>
 		</form>
 		
-		
+<?php require 'chat.php'; ?>
+	
 <?php require 'footer.php'; ?>

@@ -10,5 +10,6 @@
 	</div>
 <!-- TODO: add Swipe option for touch devices -->
 		
+<?php require 'chat.php'; ?>
 		
 <?php require 'footer.php'; ?>
