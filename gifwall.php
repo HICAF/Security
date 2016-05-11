@@ -17,32 +17,37 @@
 		<div class="info left">
 			<div class="menu">
 				<h2>Menu</h2>
-				<ul>
-				   <li>Beer</li>
-				   <li>Shots</li>
-				   <li>Drinks</li>
-				   <li>etc.</li>
-				</ul>
+				<table>
+					<tr>
+						<td>Beer</td>
+						<td>12kr</td>
+					</tr>
+					<tr>
+						<td>Shots</td>
+						<td>10kr</td>
+					</tr>
+					<tr>
+						<td>Drinks</td>
+						<td>25kr</td>
+					</tr>
+					<tr>
+						<td>etc!</td>
+						<td>0kr</td>
+					</tr>
+				</table>
 			</div>
 			<div class="instructions">
-				<h2>Wanna contibute a GIF?</h2>
-				<ul>
-				   <li>Go here</li>
-				   <li>Do that</li>
-				   <li>Blabla</li>
-				   <li>Such Instructions</li>
-				   <li>Much good</li>
-				</ul>
+				<h2>Wanna contribute a Gif?</h2>
+				<p>Go to www.blabla.bla, create an account and go nuts!</p>
 			</div>
 		</div>
 		
 		
 		<div class="gif-wrap right">
   		<div class="slider">
-    		<div><img class="slider-gif" src="http://i1.mirror.co.uk/incoming/article6656531.ece/ALTERNATES/s1200/Cat-laying-on-his-back-on-sofa.jpg"></div>
-    		<div><img class="slider-gif" src="https://www.royalcanin.com/~/media/Royal-Canin/Product-Categories/cat-adult-landing-hero.ashx"></div>
-    		<div><img class="slider-gif" src="http://i1.mirror.co.uk/incoming/article6656531.ece/ALTERNATES/s1200/Cat-laying-on-his-back-on-sofa.jpg"></div>
-    		<div><img class="slider-gif" src="https://www.royalcanin.com/~/media/Royal-Canin/Product-Categories/cat-adult-landing-hero.ashx"></div>
+    		<div><img class="slider-gif" src="http://i.giphy.com/eCqFYAVjjDksg.gif"></div>
+    		<div><img class="slider-gif" src="http://i.giphy.com/10we3R8dLZQ7hS.gif"></div>
+    		<div><img class="slider-gif" src="http://i.giphy.com/u6Ou5tTFtDgJy.gif"></div>
   		</div>
 		</div>
 		
