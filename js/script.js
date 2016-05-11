@@ -1,10 +1,18 @@
-$(document).ready(function(){
-  $('.slider').slick({
-		autoplay: true,
-		autoplaySpeed: 1000,
+$(function() {
+	
+	$(".slider").slick({
+		vertical: true,
+		adaptiveHeight: true,
+		dots: false,
 		arrows: false,
-		vertical: true
-  });
+		centerMode: true,
+		slidesToShow: 1,
+		autoplay: true,
+		autoplaySpeed: 0,
+		speed: 9000,
+		cssEase: 'linear'
+	});
+	
 });
 
 // Gif approval stuff

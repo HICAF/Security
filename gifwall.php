@@ -1,7 +1,20 @@
-<?php require 'header.php'; ?>
-<!--TODO remove nav from here later -->
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="shortcut icon" href="favicon.ico" />	
+		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="slick/slick.css">
+		<link rel="stylesheet" href="css/style.css"> 
+		<title>Gif Wall</title>
+	</head>
+
+	<body>
 		
-		<div class="info col-md-6">
+		<div class="info left">
 			<div class="menu">
 				<h2>Menu</h2>
 				<ul>
@@ -24,24 +37,25 @@
 		</div>
 		
 		
-		<div class="gif-wrap col-md-6">
-			<div class="slider">
-			     <div>
-						 <img src="http://media4.popsugar-assets.com/files/2014/08/08/878/n/1922507/caef16ec354ca23b_thumb_temp_cover_file32304521407524949.xxxlarge/i/Funny-Cat-GIFs.jpg">
-					 </div>
-			     <div>
-						 <img src="http://i1.mirror.co.uk/incoming/article6656531.ece/ALTERNATES/s1200/Cat-laying-on-his-back-on-sofa.jpg">
-					</div>
-			     <div>
-						 <img src="http://i1.mirror.co.uk/incoming/article6656531.ece/ALTERNATES/s1200/Cat-laying-on-his-back-on-sofa.jpg">
-					</div>
-			     <div>
-						 <img src="http://i1.mirror.co.uk/incoming/article6656531.ece/ALTERNATES/s1200/Cat-laying-on-his-back-on-sofa.jpg">
-					</div>
-			     <div>
-						 <img src="http://i1.mirror.co.uk/incoming/article6656531.ece/ALTERNATES/s1200/Cat-laying-on-his-back-on-sofa.jpg">
-					</div>
-			</div>
+		<div class="gif-wrap right">
+  		<div class="slider">
+    		<div><img class="slider-gif" src="http://i1.mirror.co.uk/incoming/article6656531.ece/ALTERNATES/s1200/Cat-laying-on-his-back-on-sofa.jpg"></div>
+    		<div><img class="slider-gif" src="https://www.royalcanin.com/~/media/Royal-Canin/Product-Categories/cat-adult-landing-hero.ashx"></div>
+    		<div><img class="slider-gif" src="http://i1.mirror.co.uk/incoming/article6656531.ece/ALTERNATES/s1200/Cat-laying-on-his-back-on-sofa.jpg"></div>
+    		<div><img class="slider-gif" src="https://www.royalcanin.com/~/media/Royal-Canin/Product-Categories/cat-adult-landing-hero.ashx"></div>
+  		</div>
 		</div>
+		
+		<!--  -->
 
-<?php require 'footer.php'; ?>
+		<script src="js/jquery-2.1.1.min.js"></script>
+		<!-- // <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
+
+
+		<script type="text/javascript" src="slick/slick.min.js"></script>
+		<script type="text/javascript" src="js/fileupload.js"></script>
+		
+		<script src="js/script.js"></script>
+	</body>
+
+</html>	
