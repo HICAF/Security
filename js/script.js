@@ -6,3 +6,11 @@ $(document).ready(function(){
 		vertical: true
   });
 });
+
+$(".gif-accepted").click(function(){
+	alert("Accepted");
+});
+
+$(".gif-rejected").click(function(){
+	alert("Narh, that one sucked anyways.");
+});
