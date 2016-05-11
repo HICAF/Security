@@ -1,5 +1,6 @@
 <!-- In here the common header -->
 <!-- TODO Require in all pages -->
+<!-- TODO Consistency: Gif or GIF? -->
 
 <!DOCTYPE html>
 
@@ -13,7 +14,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/style.css"> 
-		<title>GIF Wall</title>
+		<title>Gif Wall</title>
 	</head>
 
 	<body>
@@ -28,15 +29,19 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </button>
-		      <a class="navbar-brand" href="#"><!-- <img alt="Brand" src="img/logo.jpg" style="height:40px;display:inline-block;"> -->Gif wall</a>
+		      <a class="navbar-brand" href="#"><i class="fa fa-beer" aria-hidden="true"></i> Gif wall</a>
 		    </div>
 
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav navbar-right">
-		        <li><a href="index.php">Profile <i class="fa fa-user" aria-hidden="true"></i>
-</a></li>
-		        <!-- <li><a href="#">Link</a></li> -->
+						<!-- TODO only show when logged in. -->
+						<li><a href="gifupload.php">Upload Gif</a></li>
+						<!-- TODO only show to admins -->
+						<li><a href="gifaccept.php">Approve Gifs</a></li>
+		        <li>
+							<a href="index.php">Profile <i class="fa fa-user" aria-hidden="true"></i></a>
+						</li>
 		      </ul>
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
