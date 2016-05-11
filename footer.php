@@ -13,6 +13,7 @@
 
 
 		<script type="text/javascript" src="slick/slick.min.js"></script>
+		<script type="text/javascript" src="js/fileupload.js"></script>
 		
 		<script src="js/script.js"></script>
 	</body>
