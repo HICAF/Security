@@ -15,6 +15,7 @@
 		$sLastName = $aUser[0]['last_name'];
 
 
+
 	} else {
 		echo "
 			<script>
@@ -25,6 +26,9 @@
 		header("location: index.php");
 	}
  ?>
+ <script type="text/javascript">
+ 	console.log("<?php echo $_SESSION['user']; ?>")
+ </script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,10 +60,10 @@
 <body>
 
 	<h2>Your Profile</h2>
-		<label>Username: </label><input type="text" id="usernameProfile" placeholder="username" value="<?php echo $sUsername; ?>"/> <br />
-		<label>First Name: </label><input type="text" id="firstNameProfile" placeholder="first name" value="<?php echo $sFirstName; ?>" /><br />
-		<label>Last Name: </label><input type="text" id="lastNameProfile" placeholder="last name" value="<?php echo $sLastName; ?>"/><br />
-		<label>Email: </label><input type="text" id="emailProfile" placeholder="email" value="<?php echo $sEmail; ?>" />
+		<label>Username: </label><input type="text" id="usernameProfile" placeholder="<?php echo $sUsername; ?>" value=""/> <br />
+		<label>First Name: </label><input type="text" id="firstNameProfile" placeholder="<?php echo $sFirstName; ?>" value="" /><br />
+		<label>Last Name: </label><input type="text" id="lastNameProfile" placeholder="<?php echo $sLastName; ?>" value=""/><br />
+		<label>Email: </label><input type="text" id="emailProfile" placeholder="<?php echo $sEmail; ?>" value="" />
 
 <br /><br />
 		

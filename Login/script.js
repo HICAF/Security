@@ -21,21 +21,40 @@
         "lastName":lastName
       },
       method: "get",
+      async:false,
       dataType: 'json'
     }).done(function(response){
       swal({
         title: response.title,
         text: response.message,
-        type: response.type
+        type: response.type,
+        html: true
       });
+
+        $("input").removeClass("error");
+
+      if (response.type != "success") {
+
+        var faults = response.fields;
+
+        for (var i = 0 ; i < faults.length; i++) {
+          $("#"+faults[i]).addClass("error");
+        }
+      }
     }).fail(function(response){
       swal({
         title: "Ooops...!",
         text: "There was a technical error. Please try again in 5 min.",
-        type: "warning"
+        type: "error"
       });
     });
   });
+
+
+
+
+
+
 
 
 
@@ -52,6 +71,7 @@
         "password":password
       },
       method: "get",
+      async: false,
       dataType: 'json'
     }).done(function(response){
       swal({
@@ -59,6 +79,12 @@
         text: response.message,
         type: response.type
       });
+
+      if (response.type == "success") {
+        $(document).on("click",".sa-confirm-button-container .confirm",function(){
+          window.location.replace("user.php");
+        });
+      };
     }).fail(function(response){
       swal({
         title: "Ooops...!",
@@ -83,6 +109,7 @@
         "password":password
       },
       method: "get",
+      async: false,
       dataType: 'json'
     }).done(function(response){
       swal({
@@ -91,10 +118,6 @@
         type: response.type
       });
       if (response.type == "success") {
-        $(".login-box").hide();
-        $(".logout").show();
-        $(".add-flight").show();
-
         $(document).on("click",".sa-confirm-button-container .confirm",function(){
           window.location.replace("../admin/");
         });
@@ -131,33 +154,45 @@
     var password = $("#passwordProfile").val();
     var passwordCheck = $("#passwordCheckProfile").val();
 
-    console.log(firstName + " " + middleName + " " + lastName);
-    console.log(email + " " + password + " " + passwordCheck);
 
-    if (password == passwordCheck) {
-      if (password != "") {
-        password = password;
-      } else {
-        password = "";
-      }
+    username == "" ? username = $("#usernameProfile").attr("placeholder") : username = username;
+    email == "" ? email = $("#emailProfile").attr("placeholder") : email = email;
+    firstName == "" ? firstName = $("#firstNameProfile").attr("placeholder") : firstName = firstName;
+    lastName == "" ? lastName = $("#lastNameProfile").attr("placeholder") : lastName = lastName;
+
+
 
       $.ajax('ajax.php', {
         data: {
           "function": "updateProfile",
+          "username": username,
           "firstName": firstName,
-          "middleName": middleName,
           "lastName": lastName,
           "email": email,
-          "phone": phone,
-          "password": password
+          "password": password,
+          "passwordCheck": passwordCheck
         },
-        dataType: 'json'
+        async: false,
+        dataType: 'json',
+        method: "get"
       }).done(function(response){
         swal({
           title: response.title,
           text: response.message,
-          type: response.type
+          type: response.type,
+          html: true
         });
+
+         $("input").removeClass("error");
+
+        if (response.type != "success") {
+
+          var faults = response.fields;
+
+          for (var i = 0 ; i < faults.length; i++) {
+            $("#"+faults[i]).addClass("error");
+          };
+        };
       }).fail(function(response){
         swal({
           title: "Ooops...!",
@@ -165,14 +200,6 @@
           type: "warning"
         });
       });
-
-    } else {
-      swal({
-        title: "Failed!",
-        text: "The passwords you've entered does not match. Please retype your password and try again.",
-        type: "warning"
-      });
-    };
   });
 
 
@@ -193,6 +220,5 @@
   });
 
 ////////// RESET PASSWORD //////////
-  $(document).on("click", "#passwordProfile", function() {
-    $(this).val("");
-  });
+  $(document).on("click", "#passwordProfile", function() { $(this).val(""); });
+  $(document).on("click", "#passwordCheckProfile", function() { $(this).val(""); });
