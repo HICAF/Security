@@ -2,6 +2,10 @@
 ///////////// USER SYSTEM /////////////
 ///////////////////////////////////////
 
+
+
+
+
 ////////// SIGNUP //////////
   $(document).on('click','#btn-signup', function(){
     var username = $("#username").val();
@@ -21,21 +25,42 @@
         "lastName":lastName
       },
       method: "get",
+      async:false,
       dataType: 'json'
     }).done(function(response){
       swal({
         title: response.title,
         text: response.message,
-        type: response.type
+        type: response.type,
+        html: true
       });
+
+        $("input").removeClass("error");
+
+      if (response.type != "success") {
+
+        var faults = response.fields;
+
+        for (var i = 0 ; i < faults.length; i++) {
+          $("#"+faults[i]).addClass("error");
+        }
+      }
     }).fail(function(response){
       swal({
         title: "Ooops...!",
-        text: "There was a technical error. Please try again in 5 min.",
-        type: "warning"
+        text: "There was a technical error. Please try again in 25 min.",
+        type: "error"
       });
     });
   });
+
+
+
+
+
+
+
+
 
 
 
@@ -52,6 +77,7 @@
         "password":password
       },
       method: "get",
+      async: false,
       dataType: 'json'
     }).done(function(response){
       swal({
@@ -59,14 +85,27 @@
         text: response.message,
         type: response.type
       });
+
+      if (response.type == "success") {
+        $(document).on("click",".sa-confirm-button-container .confirm",function(){
+          window.location.replace("user.php");
+        });
+      };
     }).fail(function(response){
       swal({
         title: "Ooops...!",
-        text: "There was a technical error. Please try again in 5 min.",
+        text: "There was a technical error. Please try again in 25 min.",
         type: "warning"
       });
     });
   });
+
+
+
+
+
+
+
 
 
 
@@ -83,6 +122,7 @@
         "password":password
       },
       method: "get",
+      async: false,
       dataType: 'json'
     }).done(function(response){
       swal({
@@ -91,10 +131,6 @@
         type: response.type
       });
       if (response.type == "success") {
-        $(".login-box").hide();
-        $(".logout").show();
-        $(".add-flight").show();
-
         $(document).on("click",".sa-confirm-button-container .confirm",function(){
           window.location.replace("../admin/");
         });
@@ -102,11 +138,127 @@
     }).fail(function(response){
       swal({
         title: "Ooops...!",
-        text: "There was a technical error. Please try again in 5 min.",
+        text: "There was a technical error. Please try again in 25 min.",
         type: "warning"
       });
     });
   });
+
+
+
+////////// RETRIEVE PASSWORD //////////
+$(document).on('click','#btn-retrieve-password', function() {
+
+  swal({
+    title: "Write your email adress",
+    type: "input",
+    showCancelButton: true,
+    closeOnCancel: true,
+    closeOnConfirm: false,
+    html: true,
+    animation: "slide-from-top",
+    inputPlaceholder: "your@email.com"
+  }, function(inputValue){
+    if (inputValue === false) return false;
+
+    if (inputValue === "") {
+      swal.showInputError("You must enter an email to continue.");
+      return false
+    }
+
+    $.ajax('ajax.php', {
+      data: {
+        "function":"retrievePassword",
+        "email":inputValue
+      },
+      method: "get",
+      async: false,
+      dataType: 'json'
+    }).done(function(response){
+      if (response.type == "error") {
+        swal.showInputError(response.message);
+        return false;
+      } 
+      if (response.type == "success") {
+        swal({
+          title: response.title,
+          text: response.message + inputValue,
+          type: response.type
+        })
+      };
+    }).fail(function(response){
+      swal({
+        title: "Ooops...!",
+        text: "There was a technical error. Please try again in 25 min.",
+        type: "warning"
+      });
+    });
+  });
+
+});
+
+
+
+
+
+////////// RESET PASSWORD //////////
+  $(document).on('click','#btn-password-reset', function(){
+    var id = $(this).attr("data-id");
+    var password = $("#passwordReset").val();
+    var passwordCheck = $("#passwordReset").val();
+
+
+    if (password == "") {
+      swal({
+        title: "Ooops...!",
+        text: "You need to type in a password.",
+        type: "error"
+      });
+    } else if (password != passwordCheck) {
+      swal({
+        title: "Ooops...!",
+        text: "The entered password does not match.",
+        type: "error"
+      });
+    } else {
+      $.ajax('ajax.php', {
+        data: {
+          "function":"resetPassword",
+          "id":id,
+          "password":password
+        },
+        method: "get",
+
+        dataType: 'json'
+      }).done(function(response){
+        swal({
+          title: response.title,
+          text: response.message,
+          type: response.type
+        });
+
+        if (response.type == "success") {
+          $(document).on("click",".sa-confirm-button-container .confirm",function(){
+            window.location.replace("login.php");
+          });
+        };
+      }).fail(function(response){
+        swal({
+          title: "Ooops...!",
+          text: "There was a technical error. Please try again in 25 min.",
+          type: "warning"
+        });
+      });
+    };
+
+
+  });
+
+
+
+
+
+
 
 
 
@@ -122,6 +274,11 @@
 
 
 
+
+
+
+
+
 ////////// UPDATE PROFILE //////////
   $(document).on('click','#btn-UpdateProfile', function(){
     var firstName = $("#firstNameProfile").val();
@@ -131,48 +288,52 @@
     var password = $("#passwordProfile").val();
     var passwordCheck = $("#passwordCheckProfile").val();
 
-    console.log(firstName + " " + middleName + " " + lastName);
-    console.log(email + " " + password + " " + passwordCheck);
 
-    if (password == passwordCheck) {
-      if (password != "") {
-        password = password;
-      } else {
-        password = "";
-      }
+    username == "" ? username = $("#usernameProfile").attr("placeholder") : username = username;
+    email == "" ? email = $("#emailProfile").attr("placeholder") : email = email;
+    firstName == "" ? firstName = $("#firstNameProfile").attr("placeholder") : firstName = firstName;
+    lastName == "" ? lastName = $("#lastNameProfile").attr("placeholder") : lastName = lastName;
+
+
 
       $.ajax('ajax.php', {
         data: {
           "function": "updateProfile",
+          "username": username,
           "firstName": firstName,
-          "middleName": middleName,
           "lastName": lastName,
           "email": email,
-          "phone": phone,
-          "password": password
+          "password": password,
+          "passwordCheck": passwordCheck
         },
-        dataType: 'json'
+        async: false,
+        dataType: 'json',
+        method: "get"
       }).done(function(response){
         swal({
           title: response.title,
           text: response.message,
-          type: response.type
+          type: response.type,
+          html: true
         });
+
+         $("input").removeClass("error");
+
+        if (response.type != "success") {
+
+          var faults = response.fields;
+
+          for (var i = 0 ; i < faults.length; i++) {
+            $("#"+faults[i]).addClass("error");
+          };
+        };
       }).fail(function(response){
         swal({
           title: "Ooops...!",
-          text: "There was a technical error. Please try again in 5 min.",
+          text: "There was a technical error. Please try again in 25 min.",
           type: "warning"
         });
       });
-
-    } else {
-      swal({
-        title: "Failed!",
-        text: "The passwords you've entered does not match. Please retype your password and try again.",
-        type: "warning"
-      });
-    };
   });
 
 
@@ -193,6 +354,5 @@
   });
 
 ////////// RESET PASSWORD //////////
-  $(document).on("click", "#passwordProfile", function() {
-    $(this).val("");
-  });
+  $(document).on("click", "#passwordProfile", function() { $(this).val(""); });
+  $(document).on("click", "#passwordCheckProfile", function() { $(this).val(""); });

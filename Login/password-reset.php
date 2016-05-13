@@ -1,35 +1,9 @@
 <?php 
 	require "dbconnect.php";
 	require "functions.php";
+
+	$id = $_GET['id'];
  ?>
-
- <?php
-	if ($_SESSION['user'] != "") {
-		$dbUsers = $oDb->query("SELECT * FROM users WHERE user_id = '".$_SESSION['user']."'");
-		$aUser = $dbUsers->fetchAll(PDO::FETCH_ASSOC);
-
-		$sUsername = $aUser[0]['username'];
-		$sEmail = $aUser[0]['email'];
-
-		$sFirstName = $aUser[0]['first_name'];
-		$sLastName = $aUser[0]['last_name'];
-
-
-
-
-	} else {
-		echo "
-			<script>
-				alert('YOU ARE NOT LOGGED IN');
-				window.location.href='index.php';
-			</script>";
-
-		header("location: index.php");
-	}
- ?>
- <script type="text/javascript">
- 	console.log("<?php echo $_SESSION['user']; ?>")
- </script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +11,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" type="image/png" href="favicon.png">
-	<title>KEA FridayBar social - USER</title>
+	<title>KEA FridayBar social - RESET PASSWORD</title>
 
 	<!-- CDN LOCAL -->
 	<!-- <link rel="stylesheet" type="text/css" href="../cdn/bootstrap.min.css"> -->
@@ -59,30 +33,13 @@
 
 </head>
 <body>
+<h1>Reset your password</h1><br />
+<label>Change your password</label><br />
+		<input type="password" id="passwordReset" placeholder="New password" value="" /><br />
+		<input type="password" id="passwordCheckReset" placeholder="Retype password" value="" /><br />
+		<button data-id="<?php echo $id; ?>" class="btn btn-success" id="btn-password-reset">Go! &nbsp;<i class="fa fa-arrow-right"></i></button>
 
-	<h2>Your Profile</h2>
-		<label>Username: </label><input type="text" id="usernameProfile" placeholder="<?php echo $sUsername; ?>" value=""/> <br />
-		<label>First Name: </label><input type="text" id="firstNameProfile" placeholder="<?php echo $sFirstName; ?>" value="" /><br />
-		<label>Last Name: </label><input type="text" id="lastNameProfile" placeholder="<?php echo $sLastName; ?>" value=""/><br />
-		<label>Email: </label><input type="text" id="emailProfile" placeholder="<?php echo $sEmail; ?>" value="" />
 
-<br /><br />
-		
-		<label>Change your password</label><br />
-		<input type="password" id="passwordProfile" placeholder="New password" value="" /><br />
-		<input type="password" id="passwordCheckProfile" placeholder="Retype password" value="" /><br />
-
-<br /><br />
-		
-		<button id="btn-UpdateProfile" type="button" class="btn btn-primary">update my profile</button>
-		<div id="responseUpdateProfile"></div>
-		<br>
-		<button type="button" class="btn btn-primary logout">log out</button>
-		<br><br />
-		<button id="btnDeleteUser" type="button" class="btn btn-danger">delete user</button>
-		<div id="deleteConfirmation">
-		</div>
-	
 
 
 	<!-- JQuery -->

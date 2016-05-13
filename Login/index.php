@@ -31,33 +31,10 @@
 
 </head>
 <body>
+<div>
+	<h1>Welcome!</h1>
+</div>
 
-	<input type="text"  placeholder="Username" value="" id="username">
-	<input type="password"  placeholder="*******" value="" id="passwordSignup">
-	<input type="email"  placeholder="your@email.dk" value="" id="emailSignup">
-	<input type="text"  placeholder="First name" value="" id="firstName">
-	<input type="text"  placeholder="Last name" value="" id="lastName"><br /><br />
-	<button class="btn btn-success" id="btn-signup">Sign up</button>
-
-<br /><br /><br /><br />
-
-	<input name="text" type="text" required placeholder="Username" id="usernameLogin">
-	<input name="password" type="password" required placeholder="password" id="passwordLogin"><br><br>
-	<div class="login-btns">
-	<button id="btn-login" class="btn btn-success">proceed &nbsp;<i class="fa fa-arrow-right"></i></button>
-
-
-
-
-	<!-- JQuery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> 
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> 
-
-	<!-- Latest compiled and minified JavaScript bootstrap -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> 
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script> 
-
-	<script src="script.js"></script>
+<a href="login.php" class="btn btn-primary btn-sm">Login</a> | <a href="signup.php" class="btn btn-default btn-sm">Sign up</a>
 </body>
 </html>
