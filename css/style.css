@@ -3,6 +3,9 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
+input.error{border: red 2px solid;}
+
+
 body,
 html {
   width: 100%;

@@ -1,6 +1,6 @@
 <?php require 'header.php'; ?>
 
-		<form>
+
 			<div class="form-group">
 			  <label for="firstname">First name:</label>
 			  <input type="text" name="firstname" class="form-control" id="">
@@ -21,9 +21,8 @@
 			  <label for="password">Password:</label>
 			  <input type="password" name="password" class="form-control" id="">
 			</div>
-			<input class="btn btn-primary" type="submit">
+			<button class="btn btn-primary" id="btn-signup">Sign Up &nbsp;<i class="fa fa-arrow-right"></i></button>
 			<a href="login.php">Already signed up?</a>
-		</form>
 		
 		
 <?php require 'footer.php'; ?>

@@ -1,4 +1,15 @@
 <?php require 'header.php'; ?>
+
+ <?php
+	if ($_SESSION['admin'] == 0) {
+		echo "
+			<script>
+				alert('YOU DO NOT HAVE ACCESS TO THIS SITE!');
+				window.location.href='gifupload.php';
+			</script>";
+	}
+ ?>
+
 	<h2>Do you approve of this Gif?</h2>
 	
 	<div class="gif-approver-wrapper">
