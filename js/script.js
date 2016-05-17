@@ -15,15 +15,6 @@ $(function() {
 	
 });
 
-// Gif approval stuff
-$(".gif-accepted").click(function(){
-	alert("Accepted");
-});
-
-$(".gif-rejected").click(function(){
-	alert("Narh, that one sucked anyways.");
-});
-
 // Chat stuff
 $(".chat-closer").click(function(){
 	$(".chat").hide();
@@ -43,9 +34,6 @@ $(".chat-trigger").click(function(){
 ///////////////////////////////////////
 ///////////// USER SYSTEM /////////////
 ///////////////////////////////////////
-
-
-
 
 
 ////////// SIGNUP //////////
@@ -99,10 +87,6 @@ $(".chat-trigger").click(function(){
       });
     });
   });
-
-
-
-
 
 
 
@@ -166,43 +150,6 @@ $(".chat-trigger").click(function(){
 
 
 
-
-
-
-////////// LOGIN ADMIN //////////
-  $(document).on('click','#btn-admin-login', function(){
-    var email = $("#admin-email").val();
-      var password = $("#admin-password").val();
-
-
-    $.ajax('/src/ajax.php', {
-      data: {
-        "function":"admin-login",
-        "email":email,
-        "password":password
-      },
-      method: "get",
-      async: false,
-      dataType: 'json'
-    }).done(function(response){
-      swal({
-        title: response.title,
-        text: response.message,
-        type: response.type
-      });
-      if (response.type == "success") {
-        $(document).on("click",".sa-confirm-button-container .confirm",function(){
-          window.location.replace("../admin/");
-        });
-      };
-    }).fail(function(response){
-      swal({
-        title: "Ooops...!",
-        text: "There was a technical error. Please try again in 25 min.",
-        type: "warning"
-      });
-    });
-  });
 
 
 
@@ -416,3 +363,87 @@ $(document).on('click','#btn-retrieve-password', function() {
 ////////// RESET PASSWORD //////////
   $(document).on("click", "#passwordProfile", function() { $(this).val(""); });
   $(document).on("click", "#passwordCheckProfile", function() { $(this).val(""); });
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////
+///////////// APPROVE GIFS /////////////
+////////////////////////////////////////
+
+////////// GIF ACCEPTED //////////
+$(document).on("click", "#btn-gif-accepted", function() {
+	var gif_id = $(".current-gif").attr("data-id");
+
+
+	$.ajax('/src/ajax.php', {
+		data: {
+		  "function": "gif-accepted",
+		  "gif_id": gif_id
+		},
+		async: false,
+		dataType: 'json',
+		method: "get"
+	}).done(function(response){
+		swal({
+          title: response.title,
+          text: response.message,
+          type: response.type
+        });
+
+        $(document).on("click",".sa-confirm-button-container .confirm",function(){
+        	window.location.replace("gifaccept.php");
+        });
+	}).fail(function(response){
+		swal({
+		  title: "Ooops...!",
+		  text: "There was a technical error. Please try again in 25 min.",
+		  type: "warning"
+		});
+	});
+});
+
+////////// GIF REJECTED //////////
+$(document).on("click", "#btn-gif-rejected", function() {
+	var gif_id = $(".current-gif").attr("data-id");
+
+	$.ajax('/src/ajax.php', {
+		data: {
+		  "function": "gif-rejected",
+		  "gif_id": gif_id
+		},
+		async: false,
+		dataType: 'json',
+		method: "get"
+	}).done(function(response){
+		swal({
+          title: response.title,
+          text: response.message,
+          type: response.type
+        });
+
+        $(document).on("click",".sa-confirm-button-container .confirm",function(){
+        	window.location.replace("gifaccept.php");
+        });
+	}).fail(function(response){
+		swal({
+		  title: "Ooops...!",
+		  text: "There was a technical error. Please try again in 25 min.",
+		  type: "warning"
+		});
+	});
+});
+
+
+
+
+
+
+

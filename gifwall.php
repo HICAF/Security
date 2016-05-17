@@ -1,3 +1,14 @@
+<?php
+	require 'src/dbconnect.php';
+	require 'src/functions.php';
+ ?>
+
+<?php
+	$file_dir = "/src/gifs/";
+
+	$gif = $oDb->query("SELECT * FROM gifs WHERE accepted = '1' ");
+	$aGifs = $gif->fetchAll(PDO::FETCH_ASSOC);
+ ?>
 <!DOCTYPE html>
 
 <html>
@@ -44,11 +55,18 @@
 		
 		
 		<div class="gif-wrap right">
-  		<div class="slider">
-    		<div><img class="slider-gif" src="http://i.giphy.com/eCqFYAVjjDksg.gif"></div>
-    		<div><img class="slider-gif" src="http://i.giphy.com/10we3R8dLZQ7hS.gif"></div>
-    		<div><img class="slider-gif" src="http://i.giphy.com/u6Ou5tTFtDgJy.gif"></div>
-  		</div>
+	  		<div class="slider">
+		  		<?php 
+		  			for ($i=0; $i < count($aGifs); $i++) { 
+		  				$file_name = $aGifs[$i]['name'];
+						$file_path = $file_dir.$file_name;
+						$gif_id = $aGif[$i]['gif_id'];
+		  		?>
+		  			<div>
+		  				<img class="slider-gif" data-id="<?php echo $gif_id; ?>" src="<?php echo $file_path; ?>">
+		  			</div>
+		  		<?php } ?>
+	  		</div>
 		</div>
 		
 		<!--  -->

@@ -14,7 +14,7 @@
 			<input class="btn btn-primary" type="submit">
 		</form> -->
 			
-		<form>	
+		<!-- <form>	
 	  <div class="fileupload fileupload-new" data-provides="fileupload">
 	    <span class="btn btn-default btn-lg btn-file"><span class="fileupload-new">Select a Gif</span>
 	    <span class="fileupload-exists">Change</span><input type="file" /></span>
@@ -23,9 +23,16 @@
 	  </div>
 		
 			<input class="btn btn-primary" type="submit">
-		</form>
+		</form> -->
 		<br>
 		<a href="gifwall.php">See Gif Wall</a>
+
+
+        <form action="/src/ajax.php?function=upload-file" method='post' enctype='multipart/form-data'>
+		    Select image to upload:
+		    <input type="file" name="fileToUpload" id="fileToUpload"> | <input type="text" name="linkToUpload" id="linkToUpload" placeholder="URL: (http://www.example.com/path-to-gif)"> <br />
+		    <input type="submit" value="Upload Image" name="submit">
+		</form>
 		
 		
 <?php require 'chat.php'; ?>

@@ -7,6 +7,14 @@ $function = $_GET['function'];
 
 
 
+
+////////////////////////////////////
+//********************************//
+//*********	USER ACTIONS *********//
+//********************************//
+////////////////////////////////////
+
+
 ///////////////////////
 ///	SIGNUP FUNCTION ///
 ///////////////////////
@@ -480,6 +488,221 @@ if ($function == "deleteUser") {
 				window.location.href='/index.php';
 			</script>";
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////
+//*******************************//
+//*********	HANDLE GIFS *********//
+//*******************************//
+///////////////////////////////////
+
+
+
+///////////////////
+///	UPLOAD FILE ///
+///////////////////
+
+if ($function == "upload-file") {
+
+	//get the url
+	$url = $_POST['linkToUpload'];
+	$target_dir = "gifs/";
+
+
+	if ($url != "") {
+
+		//add time to the current filename
+		$name = basename($url);
+		list($txt, $ext) = explode(".", $name);
+		$name = $txt.time();
+		$name = $name.".".$ext;
+		 
+		//check if the files are only image / document
+		if($ext == "jpg" || $ext == "png" || $ext == "gif" || $ext == "jpeg" ){
+			// Check if file already exists
+			if (file_exists($target_dir.$name)) {
+			    echo "
+				<script>
+					alert('Sorry, file already exists!');
+					window.location.href='/gifupload.php';
+				</script>";
+			} else {
+				//here is the actual code to get the file from the url and save it to the uploads folder
+				//get the file from the url using file_get_contents and put it into the folder using file_put_contents
+				file_put_contents($target_dir.$name, file_get_contents($url));
+
+
+				
+				//check success
+				$date = new DateTime();
+				$user = $_SESSION['user'];
+
+				$query = $oDb->prepare(
+					"INSERT INTO gifs (gif_id, name, uploaded, pending, accepted, user_id)
+					VALUES (NULL, '".$name."', '".$date->format("Y-m-d H:i:s")."', '1','0','".$user."')
+			        ");
+			
+				$query->execute();
+
+			    echo "
+				<script>
+					alert('Your file has been uploaded!');
+					window.location.href='/gifupload.php';
+				</script>";
+			}
+
+		} else {
+		    echo "
+			<script>
+				alert('Sorry, only JPG, JPEG, PNG & GIF files are allowed!');
+				window.location.href='/gifupload.php';
+			</script>";
+		}
+	
+
+	} else {
+
+		$file_name = $_FILES['fileToUpload']['name'];
+
+		$target_file = $target_dir.$file_name;
+		$uploadOk = 1;
+		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+
+
+
+		// Check if image file is a actual image or fake image
+	    $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+	    if($check !== false) {
+	        $uploadOk = 1;
+	    } else {
+		    echo "
+			<script>
+				alert('File is not an image!');
+				window.location.href='/gifupload.php';
+			</script>";
+	        $uploadOk = 0;
+	    }
+
+		// Check if file already exists
+		if (file_exists($target_file)) {
+		    echo "
+			<script>
+				alert('Sorry, file already exists!');
+				window.location.href='/gifupload.php';
+			</script>";
+		    $uploadOk = 0;
+		}
+
+		// // Check file size
+		// if ($_FILES["fileToUpload"]["size"] > 5000000) {
+		//     echo "Sorry, your file is too large.";
+		//     $uploadOk = 0;
+		// }
+
+		// Allow certain file formats
+		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+		    echo "
+			<script>
+				alert('Sorry, only JPG, JPEG, PNG & GIF files are allowed!');
+				window.location.href='/gifupload.php';
+			</script>";
+
+		    $uploadOk = 0;
+		}
+
+		// Check if $uploadOk is set to 0 by an error
+		if ($uploadOk == 0) {
+			echo "
+			<script>
+				alert('Sorry, your file was not uploaded!');
+				window.location.href='/gifupload.php';
+			</script>";
+		
+		// if everything is ok, try to upload file
+		} else {
+			move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file);
+
+			$date = new DateTime();
+			$name = $file_name;
+			$user = $_SESSION['user'];
+
+			$query = $oDb->prepare(
+				"INSERT INTO gifs (gif_id, name, uploaded, pending, accepted, user_id)
+				VALUES (NULL, '".$name."', '".$date->format("Y-m-d H:i:s")."', '1','0','".$user."')
+		        ");
+		
+			$query->execute();
+
+			echo "
+			<script>
+				alert('Your file has been uploaded!');
+				window.location.href='/gifupload.php';
+			</script>";
+
+		}
+	}
+};
+
+
+
+
+
+
+//////////////////
+///	ACCEPT GIF ///
+//////////////////
+
+if ($function == "gif-accepted") {
+
+	$gif_id = $_GET['gif_id'];
+
+	$query = "UPDATE gifs SET pending='0', accepted='1' WHERE gif_id=".$gif_id." ";
+	
+	$sql = $oDb->prepare($query);
+	$sql->execute();
+
+	$msg = json_decode('{"title":"Great!","message":"gif has been accepted","type":"success"}');
+	echo json_encode($msg);
+};
+
+
+
+//////////////////
+///	REJECT GIF ///
+//////////////////
+
+if ($function == "gif-rejected") {
+
+	$gif_id = $_GET['gif_id'];
+
+	$query = "UPDATE gifs SET pending='0', accepted='0' WHERE gif_id=".$gif_id." ";
+
+	$sql = $oDb->prepare($query);
+	$sql->execute();
+
+	$msg = json_decode('{"title":"Nah..!","message":"That one sucked anyway","type":"error"}');
+	echo json_encode($msg);
+
+};
+
+
+
 
 
 
