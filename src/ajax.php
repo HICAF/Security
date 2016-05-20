@@ -29,7 +29,18 @@ if ($function == 'signup') {
 
 
 	// Encrypting password using MD5 hashing (NON-decryptable)
-		$ePassword = md5($sPassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword);
+		$eP = md5($sPassword);
+		$d = new DateTime();
+		$ePs1 = substr($eP, 0, 4);
+		$ePs2 = substr($eP, -6, 6);
+		$ePs3 = substr($eP, 6, 5);
+		$sD = $d->format('sYdHim');
+		$sD1 = substr($eP, 0,7);
+		$sD2 = substr($eP, -7,7);
+
+
+
+		$ePassword = $sD2."Y-".$ePs1."O-".$sD1."L-".$ePs2."O-".$ePs3."!";
 	
 
 	// Default message to display
@@ -150,11 +161,20 @@ if ($function == 'signup') {
 if ($function == 'login') { 
 	$sUsername = $_GET['username'];
 	$sPassword = $_GET['password'];
+	$bRememberMe = $_GET['rememberMe'];
 
 
 
 	// Encrypt password at same level as login
-		$ePassword = md5($sPassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword);
+		$eP = md5($sPassword);
+		$ePs1 = substr($eP, 0, 4);
+		$ePs2 = substr($eP, -6, 6);
+		$ePs3 = substr($eP, 6, 5);
+
+		$sPs = $ePs1.$ePs2.$ePs3;
+
+
+
 
 
 	$msg = json_decode('{"title":"Wrong!","message":"The email or password you have entered is incorrect. Please try again","type":"error"}');
@@ -179,30 +199,137 @@ if ($function == 'login') {
 		}
 
 	} else {
-		$user = $oDb->query("SELECT * FROM users WHERE username = '".$sUsername."' AND password = '".$ePassword."' ");
+		$user = $oDb->query("SELECT * FROM users WHERE username = '".$sUsername."' ");
 		$aUser = $user->fetchAll(PDO::FETCH_ASSOC);
 
-		
-		if (count($aUser) == 1 && $aUser[0]["active"] == "1") {
-			$_SESSION["user"] = $aUser[0]["user_id"];
-			$_SESSION["admin"] = $aUser[0]["admin"];
+		for ($i=0; $i < count($aUser); $i++) { 
+			$uPassword = $aUser[$i]['password'];
 
-			$msg->message = 'You have successfully logged in again';
-			$msg->title = 'Welcome back!';
-			$msg->type = 'success';
+			$cPs1 = substr($uPassword, 9, 4);
+			$cPs2 = substr($uPassword, 24, 6);
+			$cPs3 = substr($uPassword, 32, 5);
+			$cPs = $cPs1.$cPs2.$cPs3;
 
-			$sName = $aUser[0]["firstName"];
-			$sLastName = $aUser[0]["lastName"];
 
-			$msg->firstName = $sName;
-			$msg->lastName = $sLastName;
-			$msg->email = $sEmail;
-			$msg->password = $sPassword;
-			$msg->admin = $aUser[0]["admin"];
+		// $ePs1 = substr($eP, 0, 4);
+		// $ePs2 = substr($eP, -6, 6);
+		// $ePs3 = substr($eP, 6, 5);
+		// $sD = $d->format('sYdHim');
+		// $sD1 = substr($eP, 0,7);
+		// $sD2 = substr($eP, -7,7);
+
+		// $ePassword = $sD2."Y-".$ePs1."O-".$sD1."L-".$ePs2."O-".$ePs3."!";
+
+
+
+			if ($cPs == $sPs && $aUser[$i]["active"] == "1") {
+				$_SESSION["user"] = $aUser[$i]["user_id"];
+				$_SESSION["admin"] = $aUser[$i]["admin"];
+
+				$msg->message = 'You have successfully logged in again';
+				$msg->title = 'Welcome back!';
+				$msg->type = 'success';
+
+				$sName = $aUser[$i]["firstName"];
+				$sLastName = $aUser[$i]["lastName"];
+
+				$msg->firstName = $sName;
+				$msg->lastName = $sLastName;
+				$msg->email = $sEmail;
+				$msg->password = $sPassword;
+				$msg->admin = $aUser[$i]["admin"];
+
+				if ($bRememberMe == "true") {
+					$sUsername = $aUser[$i]["username"];
+					$sFirstName = $aUser[$i]["first_name"];
+					$sLastName = $aUser[$i]["last_name"];
+					$sPassword = $aUser[$i]["password"];
+					$iUserId = $aUser[$i]["user_id"];
+
+					$eUsername = md5($sUsername);
+					$eFirstName = md5($sFirstName);
+					$eLastName = md5($sLastName);
+					$ePassword = md5($sPassword);
+
+					for ($y=0; $i < $iUserId ; $y++) { 
+						$eUsername = md5($eUsername);
+						$eFirstName = md5($eFirstName);
+						$eLastName = md5($eLastName);
+						$ePassword = md5($ePassword);
+					}
+
+					$cUsername = substr($eUsername, 0, 4);
+					$cFirstName = substr($eFirstName, -3);
+					$cLastName = substr($eLastName, 0, 3);
+					$cPassword = substr($ePassword, -8, 6);
+
+					$cValue = $cFirstName."-".$cUsername."-".$cLastName."-".$cPassword;
+
+					$msg->cookieName = "kfbsusloinapi2016";
+					$msg->cookieValue = $cValue;
+					$msg->cookieExdays = 365;
+				}
+			}
 		}
+
+		
+		
 	}
 	echo json_encode($msg);
 };
+
+
+////////////////////
+///	COOKIE LOGIN ///
+////////////////////
+if ($function == "cookieLogin") {
+	$cValue = $_GET['userApi'];
+
+	$user = $oDb->query("SELECT * FROM users ");
+	$aUsers = $user->fetchAll(PDO::FETCH_ASSOC);
+
+	for ($i=0; $i < count($aUsers) ; $i++) { 
+		$sUsername = $aUsers[$i]["username"];
+		$sFirstName = $aUsers[$i]["first_name"];
+		$sLastName = $aUsers[$i]["last_name"];
+		$sPassword = $aUsers[$i]["password"];
+		$iUserId = $aUsers[$i]["user_id"];
+
+
+
+		$eUsername = md5($sUsername);
+		$eFirstName = md5($sFirstName);
+		$eLastName = md5($sLastName);
+		$ePassword = md5($sPassword);
+
+		for ($y=0; $y < $iUserId ; $y++) { 
+			$eUsername = md5($eUsername);
+			$eFirstName = md5($eFirstName);
+			$eLastName = md5($eLastName);
+			$ePassword = md5($ePassword);
+		}
+
+		$cUsername = substr($eUsername, 0, 4);
+		$cFirstName = substr($eFirstName, -3);
+		$cLastName = substr($eLastName, 0, 3);
+		$cPassword = substr($ePassword, -8, 6);
+
+		$checkValue = $cFirstName."-".$cUsername."-".$cLastName."-".$cPassword;
+
+		if ($checkValue == $cValue) {
+			$_SESSION["user"] = $iUserId;
+			$_SESSION["admin"] = $aUsers[$i]["admin"];
+			echo "true";
+			break;
+		} else {
+			echo $checkValue." | ";
+		}
+
+
+	} 
+}
+
+
 
 
 
@@ -307,7 +434,18 @@ if ($function == "logout") {
 		} else {
 
 			// Encrypting password using MD5 hashing (NON-decryptable)
-			$ePassword = md5($sPassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword);
+			$eP = md5($sPassword);
+			$d = new DateTime();
+			$ePs1 = substr($eP, 0, 4);
+			$ePs2 = substr($eP, -6, 6);
+			$ePs3 = substr($eP, 6, 5);
+			$sD = $d->format('sYdHim');
+			$sD1 = substr($eP, 0,7);
+			$sD2 = substr($eP, -7,7);
+
+
+
+			$ePassword = $sD2."Y-".$ePs1."O-".$sD1."L-".$ePs2."O-".$ePs3."!";
 
 
 			$query = "UPDATE users SET username='".$sUsername."', email='".$sEmail."', password='".$ePassword."', first_name='".$sFirstName."', last_name='".$sLastName."' WHERE user_id=".$_SESSION['user']." ";
@@ -433,7 +571,18 @@ if ($function == 'resetPassword') {
 
 
 	// Encrypt password at same level as login
-		$ePassword = md5($sPassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword); $ePassword = md5($ePassword);
+		$eP = md5($sPassword);
+		$d = new DateTime();
+		$ePs1 = substr($eP, 0, 4);
+		$ePs2 = substr($eP, -6, 6);
+		$ePs3 = substr($eP, 6, 5);
+		$sD = $d->format('sYdHim');
+		$sD1 = substr($eP, 0,7);
+		$sD2 = substr($eP, -7,7);
+
+
+
+		$ePassword = $sD2."Y-".$ePs1."O-".$sD1."L-".$ePs2."O-".$ePs3."!";
 
 
 	$msg = json_decode('{"title":"Wrong!","message":"Something went wrong. Please try again","type":"error"}');

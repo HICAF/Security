@@ -4,12 +4,15 @@
 <?php 
 	require 'src/dbconnect.php';
 	require 'src/functions.php';
+	// grab recaptcha library
+
  ?>
 
  <?php 
  	$user = $_SESSION["user"];
  	$admin = $_SESSION["admin"];
   ?>
+
 <!DOCTYPE html>
 
 <html>
@@ -37,6 +40,9 @@
 		<!-- Custom CSS -->
 		<link rel="stylesheet" href="css/style.css"> 
 		<link rel="stylesheet" href="css/fileupload.css"> 
+
+
+		<script src='https://www.google.com/recaptcha/api.js'></script>
 
 
 		<title>Gif Wall</title>

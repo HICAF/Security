@@ -28,3 +28,4 @@
 	</body>
 
 </html>	
+<?php require 'chat.php'; ?>

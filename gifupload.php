@@ -35,6 +35,4 @@
 		</form>
 		
 		
-<?php require 'chat.php'; ?>
-		
 <?php require 'footer.php'; ?>

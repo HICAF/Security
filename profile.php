@@ -50,7 +50,5 @@
 		<div id="deleteConfirmation">
 		</div>
 		
-		
-<?php require 'chat.php'; ?>
 
 <?php require 'footer.php'; ?>

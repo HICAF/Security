@@ -33,6 +33,4 @@
 		
 		<img alt="Logo" src="img/logo.jpg" class="logo">
 		
-<?php require 'chat.php'; ?>
-
 <?php require 'footer.php'; ?>
