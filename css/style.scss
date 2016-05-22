@@ -4,6 +4,8 @@
 	box-sizing: border-box;
 }
 
+$purple: #9b5794;
+
 body,
 html {
 	width: 100%;
@@ -31,13 +33,103 @@ body {
 
 .info, .gif-wrap {
 	height: 100%;
-	width: 50%;
 	background: black;
 	color: #ccc;
 }
 
 .info {
-
+	position: relative;
+	border: 10px solid $purple;
+	padding: 3rem;
+	
+	.header {
+		overflow: hidden;
+		margin-bottom: 1rem;
+	}
+	
+	.logo-inv {
+		width: 8rem;
+		display: inline-block;
+		margin-right: 1rem;
+	}
+	
+	h2, h3, h4, h5, h6 {
+		margin: 0;
+	}
+	
+	h2 {
+		color: $purple;	
+	}
+	
+	h3 {
+		font-weight: 200;
+	}
+	
+	h4 {
+		text-align: right;
+		font-weight: 200;
+		color: $purple;
+		margin-bottom: 1rem;
+	}
+	
+	.special {
+		position: absolute;
+		right: -.5rem;
+		top: -.5rem;
+		width: 8rem;
+		height: 8rem;
+		background: $purple;
+		color: white;
+		text-align: center;
+		padding-top: 2.5rem;
+		border-radius: 50%;
+		
+		span {
+			font-size: 2rem;
+		}
+	}
+	
+	.details {
+		font-weight: 100;
+		font-size: .8rem;
+	}
+	
+	.menu {
+		overflow: hidden;
+		
+		tr {
+			
+			&:not(:last-child) {
+				border-bottom: 2rem solid black;
+			}
+			
+			td {
+				vertical-align: top;
+			}
+		}
+		
+		> .left {
+			width: 40%;
+			
+			td {
+				padding-right: 2rem;
+			}
+			
+		}
+		
+		> .right {
+			width: 60%;
+			text-align: right;
+			
+			td {
+				padding-left: 1rem;
+			}
+			
+			img {
+				width: 3rem;
+			}
+		}
+	}
 }
 
 .gif-wrap {
@@ -128,4 +220,7 @@ footer {
 }
 .left {
 	float: left;
+}
+.half {
+	width: 50%;
 }
