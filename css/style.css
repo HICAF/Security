@@ -3,9 +3,6 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
-input.error{border: red 2px solid;}
-
-
 body,
 html {
   width: 100%;
@@ -28,9 +25,64 @@ body {
 
 .info, .gif-wrap {
   height: 100%;
-  width: 50%;
   background: black;
   color: #ccc; }
+
+.info {
+  position: relative;
+  border: 10px solid #9b5794;
+  padding: 3rem; }
+  .info .header {
+    overflow: hidden;
+    margin-bottom: 1rem; }
+  .info .logo-inv {
+    width: 8rem;
+    display: inline-block;
+    margin-right: 1rem; }
+  .info h2, .info h3, .info h4, .info h5, .info h6 {
+    margin: 0; }
+  .info h2 {
+    color: #9b5794; }
+  .info h3 {
+    font-weight: 200; }
+  .info h4 {
+    text-align: right;
+    font-weight: 200;
+    color: #9b5794;
+    margin-bottom: 1rem; }
+  .info .special {
+    position: absolute;
+    right: -.5rem;
+    top: -.5rem;
+    width: 8rem;
+    height: 8rem;
+    background: #9b5794;
+    color: white;
+    text-align: center;
+    padding-top: 2.5rem;
+    border-radius: 50%; }
+    .info .special span {
+      font-size: 2rem; }
+  .info .details {
+    font-weight: 100;
+    font-size: .8rem; }
+  .info .menu {
+    overflow: hidden; }
+    .info .menu tr:not(:last-child) {
+      border-bottom: 2rem solid black; }
+    .info .menu tr td {
+      vertical-align: top; }
+    .info .menu > .left {
+      width: 40%; }
+      .info .menu > .left td {
+        padding-right: 2rem; }
+    .info .menu > .right {
+      width: 60%;
+      text-align: right; }
+      .info .menu > .right td {
+        padding-left: 1rem; }
+      .info .menu > .right img {
+        width: 3rem; }
 
 .gif-wrap .slider {
   height: 100%; }
@@ -90,5 +142,8 @@ footer {
 
 .left {
   float: left; }
+
+.half {
+  width: 50%; }
 
 /*# sourceMappingURL=style.css.map */
