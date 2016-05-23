@@ -27,8 +27,6 @@ $(".chat-trigger").click(function(){
 
 
 
-
-
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
   d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -40,14 +38,12 @@ function setCookie(cname, cvalue, exdays) {
 function deleteCookie() {
   cookieName="kfbsusloinapi2016";
   document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-  // $('#btnLogOut').text("Login");
 }
 
 
   
 function readCookie() {
    var allcookies = document.cookie;
-   document.write ("All Cookies : " + allcookies );
    
    // Get all the cookies pairs in an array
    cookiearray = allcookies.split(';');
@@ -72,7 +68,7 @@ function readCookie() {
         "function":"cookieLogin", 
         "userApi":activeUserApi
       },
-      method: "get"
+      method: "post"
     }).done(function(response){
       console.log(response)
     }).fail(function(){
@@ -84,6 +80,12 @@ function readCookie() {
 readCookie();
 
 
+  
+
+
+
+
+
 
 
 
@@ -93,26 +95,15 @@ readCookie();
 
 
 ////////// SIGNUP //////////
-  $(document).on('click','#btn-signup', function(){
-    var username = $("input[name=username]").val();
-    var password = $("input[name=password]").val();
-    var email = $("input[name=email]").val();
-    var firstName = $("input[name=firstname]").val();
-    var lastName = $("input[name=lastname]").val();
-
+  $(document).on('submit','#signup-form', function(e){
+    e.preventDefault();
+    $this = $(this);
 
     $.ajax('/src/ajax.php', {
-      data: {
-        "function":"signup",
-        "username":username,
-        "password":password,
-        "email":email,
-        "firstName":firstName,
-        "lastName":lastName
-      },
-      method: "get",
-      async:false,
-      dataType: 'json'
+     data: $this.serialize() + "&function=" + "signup",
+      type: "post",
+      dataType: "json",
+      async: false
     }).done(function(response){
       swal({
         title: response.title,
@@ -121,7 +112,7 @@ readCookie();
         html: true
       });
 
-        $("input").removeClass("error");
+      $("input").removeClass("error");
 
       if (response.type != "success") {
 
@@ -130,7 +121,17 @@ readCookie();
         for (var i = 0 ; i < faults.length; i++) {
           $("input[name="+faults[i]+"]").addClass("error");
         } 
-      } else {
+      } else { 
+        if (response.rememberMe == "true") {
+          var cname = response.cookieName;
+          var cvalue = response.cookieValue;
+          var exdays = response.cookieExdays;
+          
+          setCookie(cname, cvalue, exdays);
+        } else {
+          deleteCookie();
+        }
+
       	$(document).on("click",".sa-confirm-button-container .confirm",function(){
           window.location.replace("gifupload.php");
         });
@@ -151,28 +152,17 @@ readCookie();
 
 
 ////////// LOGIN //////////
-  $(document).on('click','#btn-login', function(){
-    var username = $("input[name=username]").val();
-    var password = $("input[name=password]").val();
-
-    if ($("input[name=remember-me]").is(":checked")) {
-      var rememberMe = "true";
-    } else {
-      var rememberMe = "false";
-    }
+  $(document).on('submit','#login-form', function(e){
+    e.preventDefault();
+    $this = $(this);
 
 
 
     $.ajax('/src/ajax.php', {
-      data: {
-        "function":"login",
-        "username":username,
-        "password":password,
-        "rememberMe":rememberMe
-      },
-      method: "get",
-      async: false,
-      dataType: 'json'
+      data: $this.serialize() + "&function=" + "login",
+      type: "post",
+      dataType: "json",
+      async: false
     }).done(function(response){
       swal({
         title: response.title,
@@ -190,12 +180,14 @@ readCookie();
           $("input[name="+faults[i]+"]").addClass("error");
         } 
       } else {
-        if (rememberMe == "true") {
+        if (response.rememberMe == "true") {
           var cname = response.cookieName;
           var cvalue = response.cookieValue;
           var exdays = response.cookieExdays;
           
           setCookie(cname, cvalue, exdays);
+        } else {
+          deleteCookie();
         }
 
       	$(document).on("click",".sa-confirm-button-container .confirm",function(){
@@ -206,6 +198,7 @@ readCookie();
 	         	window.location.replace("gifupload.php");
       		}
         });
+
       }
     }).fail(function(response){
       swal({
@@ -247,7 +240,7 @@ $(document).on('click','#btn-retrieve-password', function() {
 
     $.ajax('/src/ajax.php', {
       data: {
-        "function":"retrievePassword",
+        "retrieveMail":"true",
         "email":inputValue
       },
       method: "get",
@@ -306,7 +299,7 @@ $(document).on('click','#btn-retrieve-password', function() {
           "id":id,
           "password":password
         },
-        method: "get",
+        method: "post",
 
         dataType: 'json'
       }).done(function(response){
@@ -346,7 +339,7 @@ $(document).on('click','#btn-retrieve-password', function() {
 ////////// LOGOUT //////////
   $(".logout").click(function(){
     deleteCookie();
-    window.location.replace("/src/ajax.php?function=logout");
+    window.location.replace("/src/ajax.php?logout=true");
   })
 
 
@@ -360,35 +353,24 @@ $(document).on('click','#btn-retrieve-password', function() {
 
 
 ////////// UPDATE PROFILE //////////
-  $(document).on('click','#btn-UpdateProfile', function(){
-    var firstName = $("input[name=firstname]").val();
-    var lastName = $("input[name=lastname]").val();
-    var email = $("input[name=email]").val();
-    var username = $("input[name=username]").val();
-    var password = $("input[name=password]").val();
-    var passwordCheck = $("input[name=passwordcheck]").val();
+  $(document).on('submit','#update-form', function(e){
+    e.preventDefault();
+    $this = $(this);
 
 
-    username == "" ? username = $("input[name=username]").attr("placeholder") : username = username;
-    email == "" ? email = $("input[name=email]").attr("placeholder") : email = email;
-    firstName == "" ? firstName = $("input[name=firstname]").attr("placeholder") : firstName = firstName;
-    lastName == "" ? lastName = $("input[name=lastname]").attr("placeholder") : lastName = lastName;
+    // username == "" ? username = $("input[name=username]").attr("placeholder") : username = username;
+    // email == "" ? email = $("input[name=email]").attr("placeholder") : email = email;
+    // firstName == "" ? firstName = $("input[name=firstname]").attr("placeholder") : firstName = firstName;
+    // lastName == "" ? lastName = $("input[name=lastname]").attr("placeholder") : lastName = lastName;
+    
 
 
 
-      $.ajax('/src/ajax.php', {
-        data: {
-          "function": "updateProfile",
-          "username": username,
-          "firstName": firstName,
-          "lastName": lastName,
-          "email": email,
-          "password": password,
-          "passwordCheck": passwordCheck
-        },
-        async: false,
-        dataType: 'json',
-        method: "get"
+    $.ajax('/src/ajax.php', {
+      data: $this.serialize() + "&function=" + "updateProfile",
+      type: "post",
+      dataType: "json",
+      async: false
       }).done(function(response){
         swal({
           title: response.title,
@@ -463,7 +445,7 @@ $(document).on("click", "#btn-gif-accepted", function() {
 		},
 		async: false,
 		dataType: 'json',
-		method: "get"
+		method: "post"
 	}).done(function(response){
 		swal({
           title: response.title,
@@ -494,7 +476,7 @@ $(document).on("click", "#btn-gif-rejected", function() {
 		},
 		async: false,
 		dataType: 'json',
-		method: "get"
+		method: "post"
 	}).done(function(response){
 		swal({
           title: response.title,

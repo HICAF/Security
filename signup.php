@@ -1,5 +1,6 @@
 <?php require 'header.php'; ?>
 
+		<form method="POST" id="signup-form">
 			<div class="form-group">
 			  <label for="firstname">First name:</label>
 			  <input type="text" name="firstname" class="form-control" id="">
@@ -20,8 +21,12 @@
 			  <label for="password">Password:</label>
 			  <input type="password" name="password" class="form-control" id="">
 			</div>
-			<button class="btn btn-primary" id="btn-signup">Sign Up &nbsp;<i class="fa fa-arrow-right"></i></button>
-
+			<div class="form-group">
+				<input type="checkbox" name="rememberMe" value="true"> Remember me
+			</div>
+			<div class="g-recaptcha" data-sitekey="6LdTeyATAAAAAHUaIPdYoCKM3IZIn76wJqxe1Cqs"></div>
+			<input type="submit" class="btn btn-primary" id="btn-signup" value="Sign Up"><br />
+		</form>
 			<a href="login.php">Already signed up?</a>
 		
 

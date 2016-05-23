@@ -28,9 +28,10 @@
 		<a href="gifwall.php">See Gif Wall</a>
 
 
-        <form action="/src/ajax.php?function=upload-file" method='post' enctype='multipart/form-data'>
+        <form action="/src/ajax.php?uploadFile=true" method='post' enctype='multipart/form-data'>
 		    Select image to upload:
 		    <input type="file" name="fileToUpload" id="fileToUpload"> | <input type="text" name="linkToUpload" id="linkToUpload" placeholder="URL: (http://www.example.com/path-to-gif)"> <br />
+			<!-- <div class="g-recaptcha" data-sitekey="6LdTeyATAAAAAHUaIPdYoCKM3IZIn76wJqxe1Cqs"></div> -->
 		    <input type="submit" value="Upload Image" name="submit">
 		</form>
 		

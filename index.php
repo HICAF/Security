@@ -33,4 +33,8 @@
 		
 		<img alt="Logo" src="img/logo.jpg" class="logo">
 		
+
+
+
+
 <?php require 'footer.php'; ?>

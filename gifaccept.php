@@ -2,11 +2,12 @@
 
  <?php
 	if ($_SESSION['admin'] == 0) {
-		echo "
-			<script>
-				alert('YOU DO NOT HAVE ACCESS TO THIS SITE!');
-				window.location.href='gifupload.php';
-			</script>";
+		header("location: index.php");
+		// echo "
+		// 	<script>
+		// 		alert('YOU DO NOT HAVE ACCESS TO THIS SITE!');
+		// 		window.location.href='gifupload.php';
+		// 	</script>";
 	}
 
 

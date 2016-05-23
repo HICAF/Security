@@ -41,10 +41,8 @@
 		<link rel="stylesheet" href="css/style.css"> 
 		<link rel="stylesheet" href="css/fileupload.css"> 
 
-
+		<!-- Google reCAPTCHA -->
 		<script src='https://www.google.com/recaptcha/api.js'></script>
-
-
 		<title>Gif Wall</title>
 	</head>
 

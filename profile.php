@@ -27,21 +27,23 @@
  ?>
 
 		<div class="profile-picture"></div>
-		
-		<label>Username: </label><input type="text" name="username" placeholder="<?php echo $sUsername; ?>" value=""/> <br />
-		<label>First Name: </label><input type="text" name="firstname" placeholder="<?php echo $sFirstName; ?>" value="" /><br />
-		<label>Last Name: </label><input type="text" name="lastname" placeholder="<?php echo $sLastName; ?>" value=""/><br />
-		<label>Email: </label><input type="text" name="email" placeholder="<?php echo $sEmail; ?>" value="" />
+		<form method="POST" id="update-form">
+			<label>Username: </label><input type="text" name="username" placeholder="<?php echo $sUsername; ?>"/> <br />
+			<label>First Name: </label><input type="text" name="firstname" placeholder="<?php echo $sFirstName; ?>" /><br />
+			<label>Last Name: </label><input type="text" name="lastname" placeholder="<?php echo $sLastName; ?>"/><br />
+			<label>Email: </label><input type="text" name="email" placeholder="<?php echo $sEmail; ?>" />
 
-<br /><br />
-		
-		<label>Change your password</label><br />
-		<input type="password" name="password" placeholder="New password" value="" /><br />
-		<input type="password" name="passwordcheck" placeholder="Retype password" value="" /><br />
+	<br /><br />
+			
+			<label>Change your password</label><br />
+			<input type="password" name="password" placeholder="New password" value="" /><br />
+			<input type="password" name="passwordcheck" placeholder="Retype password" value="" /><br />
 
-<br /><br />
-		
-		<button id="btn-UpdateProfile" type="button" class="btn btn-primary">update my profile</button>
+	<br /><br />
+			
+			<div class="g-recaptcha" data-sitekey="6LdTeyATAAAAAHUaIPdYoCKM3IZIn76wJqxe1Cqs"></div>
+			<input type="submit" id="btn-UpdateProfile" class="btn btn-primary" value="Update my profile">
+		</form>
 		<div id="responseUpdateProfile"></div>
 		<br>
 		<button type="button" class="btn btn-primary logout">log out</button>
