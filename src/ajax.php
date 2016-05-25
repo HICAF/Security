@@ -73,31 +73,31 @@ if ($function == 'signup') {
 
 		// No username has been entered
 		if ($sUsername == "") {
-			$msg->message .= "<br />No username is entered";
+			$msg->message .= "<br />No username is entered.";
 			$msg->fields[] .= "username";
 		}
 		
 		// No email has been entered
 		if ($sEmail == "") {
-			$msg->message .= "<br />No email is entered";
+			$msg->message .= "<br />No email is entered.";
 			$msg->fields[] .= "email";
 		}
 
 		// No password has been entered
 		if ($sPassword == "") {
-			$msg->message .= "<br />No password is entered";
+			$msg->message .= "<br />No password is entered.";
 			$msg->fields[] .= "password";
 		}
 
 		// No First name has been entered
 		if ($sFirstName == "") {
-			$msg->message .= "<br />No firstname is entered";
+			$msg->message .= "<br />No firstname is entered.";
 			$msg->fields[] .= "firstname";
 		}
 
 		// no Last name has been entered
 		if ($sLastName == "") {
-			$msg->message .= "<br />No lastname is entered";
+			$msg->message .= "<br />No lastname is entered.";
 			$msg->fields[] .= "lastname";
 		}
 
@@ -113,20 +113,20 @@ if ($function == 'signup') {
 		$msg->title = 'You again?';
 
 		if (count($aUsernameCheck) == 1) {
-			$msg->message .="The usernmae is already in use<br />";
+			$msg->message .="This username is already in use.<br />";
 			$msg->fields[] .="username";
 		}
 
 
 		if (count($aEmailCheck) == 1) {
-			$msg->message .= "The email address is already in use<br />";
+			$msg->message .= "The email address is already in use.<br />";
 			$msg->fields[] .= "email";
 		}
 
 	// Validation of input strings.
 	} else if (!preg_match("/^[a-zA-Z æøåÆØÅ\-]*$/",$sFirstName) || !preg_match("/^[a-zA-Z æøåÆØÅ\-]*$/",$sLastName) || !filter_var($sEmail, FILTER_VALIDATE_EMAIL) || $expMail[1]=="mailinator.com" || !preg_match('/^[a-zA-Z0-9 æøåÆØÅ.,:;\-\_\/]+$/', $sUsername) || !preg_match('/^[a-zA-Z0-9 æøåÆØÅ.,:;\-\_\/]+$/', $sPassword) ) {
 		
-		$msg->message = "There seems to be an issue with your inputs<br />";
+		$msg->message = "There seems to be an issue with your inputs.<br />";
 
 
 		// Check if firstname is legit
@@ -161,8 +161,8 @@ if ($function == 'signup') {
 
         if($response.success==false)
         {
-          $msg->message = '<h4>You are spammer ! Get the FUCKK out</h4>';
-          $msg->title = 'Son of a Cunt!';
+          $msg->message = "<h4>We have reason to believe that you're not an honest user of the site.</h4>";
+          $msg->title = 'Hey there, friendo!';
         } else {
 			if (count($aEmailCheck) == 1 && $aEmailCheck[0]["active"]=="0") {
 				
@@ -182,8 +182,8 @@ if ($function == 'signup') {
 			}
 
 
-
-			$msg->message = "Your user has successfully been created";
+			
+			$msg->message = "Your user has been created successfully.";
 			$msg->title = "Congratulations!";
 			$msg->type = "success";
 
@@ -281,31 +281,31 @@ if ($function == 'login') {
 
 
 
-	$msg = json_decode('{"title":"Wrong!","message":"The email or password you have entered is incorrect. Please try again","type":"error","rememberMe":"false","fields":[] }');
+	$msg = json_decode('{"title":"Wrong!","message":"The email or password you have entered is incorrect. Please try again!","type":"error","rememberMe":"false","fields":[] }');
 	
 	
 	// Check if all required fields has been 
 	if ($sUsername == "" ||  $sPassword == "" || !$captcha) {
 
-		$msg = json_decode('{"title":"Ooops...!","message":"You need to fill out all the required fields<br />","type":"warning","fields":[] }');
+		$msg = json_decode('{"title":"Ooops...!","message":"You need to fill out all the required fields.<br />","type":"warning","fields":[] }');
 
 		// No username has been entered
 		if ($sUsername == "") {
-			$msg->message .= "<br />No username is entered";
+			$msg->message .= "<br />No username is entered.";
 			$msg->fields[] .= "username";
 		}
 		
 
 		// No password has been entered
 		if ($sPassword == "") {
-			$msg->message .= "<br />No password is entered";
+			$msg->message .= "<br />No password is entered.";
 			$msg->fields[] .= "password";
 		}
 
 		// reCAPTCHA not cehcked
 		if(!$captcha){
-          $msg->message .= '<br /><strong>Confirm that your not a robot!</strong>';
-        }
+	          $msg->message .= '<br /><strong>Confirm that your not a robot!</strong>';
+	        }
 
 	} else {
 		$response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LdTeyATAAAAALuCaOJ9Xuiv9IGEJcwcoE2R-Jl8&response=".$captcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
@@ -313,8 +313,8 @@ if ($function == 'login') {
 
         if($response.success==false)
         {
-          $msg->message = '<h4>You are spammer ! Get the FUCKK out</h4>';
-          $msg->title = 'Son of a Cunt!';
+          $msg->message = "<h4>We have reason to believe that you're not an honest user of this site.</h4>";
+          $msg->title = 'Hey there, friendo!';
         } else {
           
 			$user = $oDb->query("SELECT * FROM users WHERE username = '".$sUsername."' ");
@@ -539,7 +539,7 @@ if ($_GET["logout"] == "true") {
 
 
 	if (count($aUsernameCheck) == 1 && $aUsernameCheck[0]['user_id'] != $userId) {
-		$msg->message .="The usernmae is already in use<br />";
+		$msg->message .="The usernmae is already in use.<br />";
 		$msg->fields[] .="usernameProfile";
 		$msg->title = 'A fault occured!';
 		$msg->type = "error";
@@ -547,7 +547,7 @@ if ($_GET["logout"] == "true") {
 
 
 	if (count($aEmailCheck) == 1 && $aEmailCheck[0]['user_id'] != $userId) {
-		$msg->message .= "The email address is already in use<br />";
+		$msg->message .= "The email address is already in use.<br />";
 		$msg->fields[] .= "emailProfile";
 		$msg->title = 'A fault occured!';
 		$msg->type = "error";
@@ -556,7 +556,7 @@ if ($_GET["logout"] == "true") {
 	if ($sPassword != $sPasswordCheck) {
 		$msg->title = 'A fault occured!';
 		$msg->type = "error";
-		$msg->message .="Your passwords does not match.";
+		$msg->message .="Your passwords do not match.";
 		$msg->fields[] .="passwordProfile";
 		$msg->fields[] .="passwordCheckProfile";
 
@@ -564,7 +564,7 @@ if ($_GET["logout"] == "true") {
 
 	if (!preg_match("/^[a-zA-Z æøåÆØÅ\-]*$/",$sFirstName) || !preg_match("/^[a-zA-Z æøåÆØÅ\-]*$/",$sLastName) || !filter_var($sEmail, FILTER_VALIDATE_EMAIL) || $expMail[1]=="mailinator.com" || !preg_match('/^[a-zA-Z0-9 æøåÆØÅ.,:;\-\_\/]+$/', $sUsername) || !preg_match('/^[a-zA-Z0-9 æøåÆØÅ.,:;\-\_\/]+$/', $sPassword) && $sPassword != "" ) {
 		
-		$msg->message = "There seems to be an issue with your inputs<br />";
+		$msg->message = "There seems to be an issue with your inputs.<br />";
 		$msg->title = 'A fault occured!';
 		$msg->type = "error";
 
@@ -609,14 +609,14 @@ if ($_GET["logout"] == "true") {
 
         if($response.success==false)
         {
-          $msg->message = '<h4>You are spammer ! Get the FUCKK out</h4>';
-          $msg->title = 'Son of a Cunt!';
+          $msg->message = "<h4>We have reason to believe that you're not an honest user of the site.</h4>";
+          $msg->title = 'Hey there, friendo!';
         } else {
 			// Upload user data WITHOUT password change
 			if ($sPassword == "") {
 				$query = "UPDATE users SET username='".$sUsername."', email='".$sEmail."', first_name='".$sFirstName."', last_name='".$sLastName."' WHERE user_id=".$_SESSION['user']." ";
 
-				$msg->message = "Your profile has successfully been updated.";
+				$msg->message = "Your profile has been updated successfully.";
 				$msg->title = "Congratulations!";
 				$msg->type = "success";	
 
@@ -640,7 +640,7 @@ if ($_GET["logout"] == "true") {
 
 				$query = "UPDATE users SET username='".$sUsername."', email='".$sEmail."', password='".$ePassword."', first_name='".$sFirstName."', last_name='".$sLastName."' WHERE user_id=".$_SESSION['user']." ";
 
-				$msg->message = "Your profile AND password has successfully been updated.";
+				$msg->message = "Both, your profile and password has successfully been updated.";
 				$msg->title = "Congratulations!";
 				$msg->type = "success";	
 			}
@@ -672,7 +672,7 @@ if ($_GET['retrieveMail'] == "true") {
 
 
 	// Standard return message
-	$msg = json_last_error('{"message":"It seems like an error occured. Try type your email again or reload the page.","title":"Hmmm!?","type":"warning"}');
+	$msg = json_last_error('{"message":"It seems like an error occured. Try typing your email again or reload the page.","title":"Hmmm!?","type":"warning"}');
 
 
 	// Check if email exists in DB
