@@ -2,7 +2,7 @@
 session_start();
 
 $servername = "localhost";
-$username = "admin";
+$username = "root";
 $password = "";
 $dbname = "security_exam";
 
