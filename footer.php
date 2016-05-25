@@ -1,15 +1,12 @@
 <!-- In here the common footer stuff -->
-<!-- TODO Require in all pages -->
-
 		</div>
 		
 		<footer>
-			<p>whatever else we might need to throw into the footer</p>
-			<p>Bar opening times? Disclaimer? Blabla?</p>
-			&copy; what's our name? | 2016
+			<p>Fredags Bar is opened on Fridays 2pm - 11pm at Lygten 16</p>
+			&copy; MICC | <?php echo date("Y"); ?>
 		</footer>
 
-
+		<?php require 'chat.php'; ?>
 		<!-- JQuery -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> 
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> 
@@ -28,4 +25,4 @@
 	</body>
 
 </html>	
-<?php require 'chat.php'; ?>
+
