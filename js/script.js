@@ -15,6 +15,10 @@ $(function() {
 	
 });
 
+
+
+
+
 // Chat stuff
 $(".chat-closer").click(function(){
 	$(".chat").hide();
@@ -25,8 +29,52 @@ $(".chat-trigger").click(function(){
 });
 
 
+$('#submit-msg').keydown(function (e){
+    if(e.keyCode == 13 && !event.shiftKey){
+      var clientmsg = $(this).val();
+      console.log(clientmsg);
+      $.ajax('/src/ajax.php', {
+        data: {
+          "function":"submit-chat-msg", 
+          "message":clientmsg
+        },
+        method: "post"
+      }).done(function(response){
+        $("#submit-msg").val("");
+      }).fail(function(){
+        swal({
+          title: "Ooops...!",
+          text: "There was a technical error. Please try again in 25 min.",
+          type: "error"
+        });
+      });       
+      return false;
+    } 
+})
+
+// Continuously chat update
+function loadLog(){   
+  $.ajax({
+    url: "/src/chatLog.html",
+    cache: false,
+    success: function(html){    
+      var oldscrollHeight = $("#messages").prop("scrollHeight") - 20;
+      $("#messages").html(html); //Insert chat log into the #chatbox div 
+      //Auto-scroll     
+      var newscrollHeight = $("#messages").prop("scrollHeight") - 20; //Scroll height after the request
+      if(newscrollHeight > oldscrollHeight){
+        $("#messages").scrollTop(newscrollHeight); //Autoscroll to bottom of div
+      }      
+    },
+  });
+}
+
+setInterval(loadLog,500);
 
 
+
+
+// Cookie stuff
 function setCookie(cname, cvalue, exdays) {
   var d = new Date();
   d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -277,7 +325,7 @@ $(document).on('click','#btn-retrieve-password', function() {
   $(document).on('click','#btn-password-reset', function(){
     var id = $(this).attr("data-id");
     var password = $("#passwordReset").val();
-    var passwordCheck = $("#passwordReset").val();
+    var passwordCheck = $("#passwordCheckReset").val();
 
 
     if (password == "") {

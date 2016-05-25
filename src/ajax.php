@@ -7,6 +7,28 @@ $function = $_POST['function'];
 
 
 
+// Chat stuff
+if ($function == 'submit-chat-msg') {
+	$sMessage = $_POST['message'];
+	$admin = " - admin";
+
+
+	if ($sMessage != "" ) {		
+		// Fetch username
+		$userCheck = $oDb->prepare("SELECT * FROM users WHERE user_id = '".$_SESSION['user']."' ");
+		$userCheck->execute();
+		$aUserCheck = $userCheck->fetchAll(PDO::FETCH_ASSOC);
+		
+		if ($_SESSION["admin"] == 1) {
+			$admin = "- admin";
+		}
+
+		$fp = fopen("chatLog.html", 'a');
+	    fwrite($fp, "<p class='chat-msg'>(".date("H:i").") <b>".$aUserCheck[0]['username'].":</b><i>".$admin."</i><br />".stripslashes(htmlspecialchars($sMessage))."</p>");
+	    fclose($fp);
+	}
+}
+
 
 
 ////////////////////////////////////
