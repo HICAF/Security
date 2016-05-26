@@ -6,15 +6,11 @@
 			&copy; MICC | <?php echo date("Y"); ?>
 		</footer>
 
-<<<<<<< HEAD
 <?php 
 	if (isset($_SESSION['user'])) {
 	 	require 'chat.php';
 	 }  
  ?>
-=======
-		<?php require 'chat.php'; ?>
->>>>>>> 897c6bbc66cea446233d02b1cfd2aa5fa22d6605
 
 		<!-- JQuery -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> 

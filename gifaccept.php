@@ -39,8 +39,6 @@
 		<button class="gif-rejected btn btn-danger btn-lg" id="btn-gif-rejected">X</button>		
 		<button class="gif-accepted btn btn-success btn-lg" id="btn-gif-accepted">√</button>
 		<br><br><a href="gifwall.php">See Gif Wall</a>
-	</div>
-<!-- TODO: add Swipe option for touch devices -->
-		
+	</div>		
 		
 <?php require 'footer.php'; ?>

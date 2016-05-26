@@ -1,6 +1,4 @@
 <!-- In here the chat stuff -->
-<!-- TODO require in all files. -->
-<!-- Do we want this as "Quickchat" and have a proper page as well? -->
 
 <i class="chat-trigger fa fa-comments fa-5x" aria-hidden="true"></i>
 
