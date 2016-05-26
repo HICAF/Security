@@ -1,17 +1,10 @@
-<!-- In here the common header -->
-<!-- TODO Require in all pages -->
-<!-- TODO Consistency: Gif or GIF? -->
 <?php 
 	require 'src/dbconnect.php';
-	require 'src/functions.php';
 	// grab recaptcha library
 
- ?>
-
- <?php 
  	$user = $_SESSION["user"];
  	$admin = $_SESSION["admin"];
-  ?>
+?>
 
 <!DOCTYPE html>
 
@@ -64,15 +57,13 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav navbar-right">
-		      		<?php if ($user != "") { ?>
-						<!-- TODO only show when logged in. -->
-						<li><a href="gifupload.php">Upload Gif</a></li>
-						<!-- TODO only show to admins -->
-						<?php if ($admin == "1") { ?>
-						<li><a href="gifaccept.php">Approve Gifs</a></li>
+		      	<?php if ($user != "") { ?>
+							<li><a href="gifupload.php">Upload Gif</a></li>
+							<?php if ($admin == "1") { ?>
+								<li><a href="gifaccept.php">Approve Gifs</a></li>
+							<?php } ?>
+		        	<li><a href="profile.php">Profile <i class="fa fa-user" aria-hidden="true"></i></a></li>
 						<?php } ?>
-		        		<li><a href="profile.php">Profile <i class="fa fa-user" aria-hidden="true"></i></a></li>
-					<?php } ?>
 		      </ul>
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->

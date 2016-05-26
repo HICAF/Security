@@ -1,6 +1,5 @@
-<?php	require 'header.php'; ?>
+<?php	require 'header.php'; 
 
-<?php
 	if ($_SESSION['user'] != "") {
 		$dbUsers = $oDb->query("SELECT * FROM users WHERE user_id = '".$_SESSION['user']."'");
 		$aUser = $dbUsers->fetchAll(PDO::FETCH_ASSOC);

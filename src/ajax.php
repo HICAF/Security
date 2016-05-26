@@ -1,6 +1,5 @@
 <?php
 require "dbconnect.php";
-require "functions.php";
 require "SMSApi.php";
 
 $function = $_POST['function'];

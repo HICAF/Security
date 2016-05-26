@@ -6,12 +6,8 @@
 			&copy; MICC | <?php echo date("Y"); ?>
 		</footer>
 
-<<<<<<< HEAD
 		<?php require 'chat.php'; ?>
-=======
-<?php require 'chat.php'; ?>
 
->>>>>>> master
 		<!-- JQuery -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> 
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> 
@@ -22,15 +18,9 @@
 
 		<!-- Latest compiled and minified JavaScript SweetAlert -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script> 
-
-		<script type="text/javascript" src="slick/slick.min.js"></script>
-		<script type="text/javascript" src="js/fileupload.js"></script>
 		
+		<script type="text/javascript" src="js/fileupload.js"></script>
 		<script src="js/script.js"></script>
 	</body>
 
 </html>	
-<<<<<<< HEAD
-
-=======
->>>>>>> master
