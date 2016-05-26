@@ -4,6 +4,19 @@
 
  	$user = $_SESSION["user"];
  	$admin = $_SESSION["admin"];
+
+
+$host = basename($_SERVER['REQUEST_URI']);
+$host = strtolower($host);
+if ($user != "") {
+	if(strrpos($host, 'login.php') !== false ) { header('location: profile.php'); }
+	else if(strrpos($host, 'signup.php') !== false ) { header('location: profile.php'); }
+} else {
+	if(strrpos($host, 'profile.php') !== false ) { header('location: index.php'); }
+	else if(strrpos($host, 'gifaccept.php') !== false ) { header('location: index.php'); }
+	else if(strrpos($host, 'gifupload.php') !== false ) { header('location: index.php'); }
+}
+ 
 ?>
 
 <!DOCTYPE html>

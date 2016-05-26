@@ -21,8 +21,13 @@
 
 		
 		<div class="register-wrap">
+		<?php if ($sName !== "Guest") { ?>
+			<a href="profile.php" class="btn btn-primary">Profile</a>
+			<a href="gifupload.php" class="btn btn-primary">Suggest a gif</a>
+		<?php } else { ?>
 			<a href="login.php" class="btn btn-primary">Login</a>
 			<a href="signup.php" class="btn btn-primary">Sign up</a>
+		<?php } ?>
 		</div>
 		
 		<h2>Hi there, <?php echo $sName; ?></h2>

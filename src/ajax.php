@@ -9,7 +9,7 @@ $function = $_POST['function'];
 // Chat stuff
 if ($function == 'submit-chat-msg') {
 	$sMessage = $_POST['message'];
-	$admin = " - admin";
+	$admin = "";
 
 
 	if ($sMessage != "" ) {		
@@ -19,7 +19,7 @@ if ($function == 'submit-chat-msg') {
 		$aUserCheck = $userCheck->fetchAll(PDO::FETCH_ASSOC);
 		
 		if ($_SESSION["admin"] == 1) {
-			$admin = "- admin";
+			$admin = " - admin";
 		}
 
 		$fp = fopen("chatLog.html", 'a');
@@ -557,7 +557,6 @@ if ($_GET["logout"] == "true") {
 
  if ($function == 'updateProfile' ) {
 	$sEmail = $_POST['email'];
-	$sUsername = $_POST['username'];
 	$sFirstName = $_POST['firstname'];
 	$sLastName = $_POST['lastname'];
 	$sPassword = $_POST['password'];
@@ -568,10 +567,6 @@ if ($_GET["logout"] == "true") {
 	$activeUser = $oDb->prepare("SELECT * FROM users WHERE user_id = '".$userId."' ");
 	$activeUser->execute();
 	$aActiveUser = $activeUser->fetchAll(PDO::FETCH_ASSOC);
-	
-	if ($sUsername == "") {
-		$sUsername = $aActiveUser[0]['username'];
-	}
 
 	if ($sFirstName == "") {
 		$sFirstName = $aActiveUser[0]['first_name'];
@@ -633,7 +628,7 @@ if ($_GET["logout"] == "true") {
 
 	}
 
-	if (!preg_match("/^[a-zA-Z æøåÆØÅ\-]*$/",$sFirstName) || !preg_match("/^[a-zA-Z æøåÆØÅ\-]*$/",$sLastName) || !filter_var($sEmail, FILTER_VALIDATE_EMAIL) || $expMail[1]=="mailinator.com" || !preg_match('/^[a-zA-Z0-9 æøåÆØÅ.,:;\-\_\/]+$/', $sUsername) || !preg_match('/^[a-zA-Z0-9 æøåÆØÅ.,:;\-\_\/]+$/', $sPassword) && $sPassword != "" ) {
+	if (!preg_match("/^[a-zA-Z æøåÆØÅ\-]*$/",$sFirstName) || !preg_match("/^[a-zA-Z æøåÆØÅ\-]*$/",$sLastName) || !filter_var($sEmail, FILTER_VALIDATE_EMAIL) || $expMail[1]=="mailinator.com" || !preg_match('/^[a-zA-Z0-9 æøåÆØÅ.,:;\-\_\/]+$/', $sPassword) && $sPassword != "" ) {
 		
 		$msg->message = "There seems to be an issue with your inputs.<br />";
 		$msg->title = 'A fault occured!';
@@ -650,11 +645,6 @@ if ($_GET["logout"] == "true") {
 			$msg->fields[] .= "lastname";
 		}
 
-		// Username can only contain letters, numbers, space, dot, comma, dash, underscore, slash
-		if (!preg_match('/^[a-zA-Z0-9 æøåÆØÅ.,:;\-\_\/]+$/', $sUsername)) {
-			$msg->message .= "<br />Your username seems to be invalid!<br />(username can only contain letters, numbers, space, dot, comma, dash, underscore, slash)";
-			$msg->fields[] .= "username";
-		}
 		// Password can only contain letters, numbers, space, dot, comma, dash, underscore, slash, backslash
 		if (!preg_match('/^[a-zA-Z0-9 æøåÆØÅ.,:;\-\_\/]+$/', $sPassword)) {
 			$msg->message .= "<br />Your passowrd seems to be invalid!<br />(password can only contain letters, numbers, space, dot, comma, dash, underscore, slash)";
@@ -685,7 +675,7 @@ if ($_GET["logout"] == "true") {
         } else {
 			// Upload user data WITHOUT password change
 			if ($sPassword == "") {
-				$query = "UPDATE users SET username='".$sUsername."', email='".$sEmail."', first_name='".$sFirstName."', last_name='".$sLastName."' WHERE user_id=".$_SESSION['user']." ";
+				$query = "UPDATE users SET email='".$sEmail."', first_name='".$sFirstName."', last_name='".$sLastName."' WHERE user_id=".$_SESSION['user']." ";
 
 				$msg->message = "Your profile has been updated successfully.";
 				$msg->title = "Congratulations!";
@@ -709,7 +699,7 @@ if ($_GET["logout"] == "true") {
 				$ePassword = $sD2."Y-".$ePs1."O-".$sD1."L-".$ePs2."O-".$ePs3."!";
 
 
-				$query = "UPDATE users SET username='".$sUsername."', email='".$sEmail."', password='".$ePassword."', first_name='".$sFirstName."', last_name='".$sLastName."' WHERE user_id=".$_SESSION['user']." ";
+				$query = "UPDATE users SET email='".$sEmail."', password='".$ePassword."', first_name='".$sFirstName."', last_name='".$sLastName."' WHERE user_id=".$_SESSION['user']." ";
 
 				$msg->message = "Both, your profile and password has successfully been updated.";
 				$msg->title = "Congratulations!";

@@ -16,9 +16,6 @@ $(function() {
 });
 
 
-
-
-
 // Chat stuff
 $(".chat-closer").click(function(){
 	$(".chat").hide();
@@ -26,6 +23,9 @@ $(".chat-closer").click(function(){
 
 $(".chat-trigger").click(function(){
 	$(".chat").toggle();
+  var newscrollHeight = $("#messages").prop("scrollHeight") - 20; //Scroll height after the request      
+  $("#messages").scrollTop(newscrollHeight); //Autoscroll to bottom of div
+
   $(".chat-trigger").removeClass("new-message");
   
 });
@@ -466,14 +466,6 @@ $(document).on('click','#btn-retrieve-password', function() {
   $(document).on('submit','#update-form', function(e){
     e.preventDefault();
     $this = $(this);
-
-
-    // username == "" ? username = $("input[name=username]").attr("placeholder") : username = username;
-    // email == "" ? email = $("input[name=email]").attr("placeholder") : email = email;
-    // firstName == "" ? firstName = $("input[name=firstname]").attr("placeholder") : firstName = firstName;
-    // lastName == "" ? lastName = $("input[name=lastname]").attr("placeholder") : lastName = lastName;
-    
-
 
 
     $.ajax('/src/ajax.php', {

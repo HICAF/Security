@@ -10,22 +10,10 @@
 		$sFirstName = $aUser[0]['first_name'];
 		$sLastName = $aUser[0]['last_name'];
 
-	} else {
-		echo "
-			<script>
-				alert('YOU ARE NOT LOGGED IN');
-				window.location.href='index.php';
-			</script>";
-
-		header("location: index.php");
 	}
  ?>
-
+ 		<h3><?php echo $sUsername; ?></h3>
 		<form method="POST" id="update-form">
-			<div class="form-group">
-				<label for="username">Username: </label>
-				<input type="text" name="username" class="form-control" placeholder="<?php echo $sUsername; ?>"/>
-			</div>
 			<div class="form-group">
 				<label for="firstname">First Name: </label>
 				<input type="text" name="firstname" class="form-control" placeholder="<?php echo $sFirstName; ?>" />
