@@ -26,6 +26,7 @@ $(".chat-closer").click(function(){
 
 $(".chat-trigger").click(function(){
 	$(".chat").toggle();
+  $(".chat-trigger").removeClass("new-message");
   
 });
 
@@ -54,40 +55,39 @@ $('#submit-msg').keydown(function (e){
 })
 
 // Continuously chat update
-function loadLog(){   
-  // $.ajax({
-  //   url: "/src/chatLog.html",
-  //   cache: false,
-  //   success: function(html){    
-  //     var oldscrollHeight = $("#messages").prop("scrollHeight") - 20;
-  //     $("#messages").html(html); //Insert chat log into the #chatbox div 
-  //     //Auto-scroll     
-  //     var newscrollHeight = $("#messages").prop("scrollHeight") - 20; //Scroll height after the request
-  //     if(newscrollHeight > oldscrollHeight){
-  //       var audioElement = document.createElement('audio');
-  //       audioElement.setAttribute('src', '/src/notification.mp3');
-  //       audioElement.setAttribute('autoplay', 'autoplay');
+function loadLog(){
+  
 
-  //       audioElement.play();
+  $.ajax({
+    url: "/src/chatLog.html",
+    cache: false,
+    success: function(html){
+      var originalCount = $("#messages").children('.chat-msg');
+      var oldscrollHeight = $("#messages").prop("scrollHeight") - 20;
+      
+      $("#messages").html(html); //Insert chat log into the #chatbox div 
+      
+      // If new comment play sound
+      var newCount = $("#messages").children('.chat-msg');
+      if (originalCount.length < newCount.length ) {
+        var audioElement = document.createElement('audio');
+        audioElement.setAttribute('src', '/src/notification.mp3');
+        audioElement.setAttribute('autoplay', 'autoplay');
 
-  //       $("#messages").scrollTop(newscrollHeight); //Autoscroll to bottom of div
-  //     }
-  //   },
-  // });
-  $.ajax('/src/ajax.php', {
-        data: {
-          "function":"updateChat"
-        },
-        method: "post"
-      }).done(function(response){
-        console.log(response)
-      }).fail(function(){
-        swal({
-          title: "Ooops...!",
-          text: "There was a technical error. Please try again in 25 min.",
-          type: "error"
-        });
-      });
+        audioElement.play();
+        if ($(".chat").is(":hidden")) {
+          $(".chat-trigger").addClass("new-message");
+        }
+      }
+
+      //Auto-scroll     
+      var newscrollHeight = $("#messages").prop("scrollHeight") - 20; //Scroll height after the request
+      
+      if(newscrollHeight > oldscrollHeight){
+        $("#messages").scrollTop(newscrollHeight); //Autoscroll to bottom of div
+      }
+    },
+  });
 }
 
 setInterval(loadLog,500);

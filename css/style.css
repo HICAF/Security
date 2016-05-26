@@ -104,6 +104,8 @@ body {
   right: 4rem;
   bottom: 4rem;
   cursor: pointer; }
+  .chat-trigger.new-message {
+    text-shadow: 0px 0px 10px green; }
   .chat-trigger:hover {
     text-shadow: 0px 0px 5px blue; }
 
