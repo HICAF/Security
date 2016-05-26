@@ -51,6 +51,10 @@
 		<button id="btnDeleteUser" type="button" class="btn btn-danger">delete user</button>
 		<div id="deleteConfirmation">
 		</div>
+		<br />
+		<?php if ($_SESSION['admin'] == "1") { ?>
+			<button id="deleteChat" type="button" class="btn btn-warning btn-sm">Delete chat log</button>
+		<?php } ?>
 		
 
 <?php require 'footer.php'; ?>

@@ -1,6 +1,5 @@
 <?php
 	require 'src/dbconnect.php';
-	require 'src/functions.php';
  ?>
 
 <?php

@@ -26,6 +26,7 @@ $(".chat-closer").click(function(){
 
 $(".chat-trigger").click(function(){
 	$(".chat").toggle();
+  
 });
 
 
@@ -54,22 +55,83 @@ $('#submit-msg').keydown(function (e){
 
 // Continuously chat update
 function loadLog(){   
-  $.ajax({
-    url: "/src/chatLog.html",
-    cache: false,
-    success: function(html){    
-      var oldscrollHeight = $("#messages").prop("scrollHeight") - 20;
-      $("#messages").html(html); //Insert chat log into the #chatbox div 
-      //Auto-scroll     
-      var newscrollHeight = $("#messages").prop("scrollHeight") - 20; //Scroll height after the request
-      if(newscrollHeight > oldscrollHeight){
-        $("#messages").scrollTop(newscrollHeight); //Autoscroll to bottom of div
-      }      
-    },
-  });
+  // $.ajax({
+  //   url: "/src/chatLog.html",
+  //   cache: false,
+  //   success: function(html){    
+  //     var oldscrollHeight = $("#messages").prop("scrollHeight") - 20;
+  //     $("#messages").html(html); //Insert chat log into the #chatbox div 
+  //     //Auto-scroll     
+  //     var newscrollHeight = $("#messages").prop("scrollHeight") - 20; //Scroll height after the request
+  //     if(newscrollHeight > oldscrollHeight){
+  //       var audioElement = document.createElement('audio');
+  //       audioElement.setAttribute('src', '/src/notification.mp3');
+  //       audioElement.setAttribute('autoplay', 'autoplay');
+
+  //       audioElement.play();
+
+  //       $("#messages").scrollTop(newscrollHeight); //Autoscroll to bottom of div
+  //     }
+  //   },
+  // });
+  $.ajax('/src/ajax.php', {
+        data: {
+          "function":"updateChat"
+        },
+        method: "post"
+      }).done(function(response){
+        console.log(response)
+      }).fail(function(){
+        swal({
+          title: "Ooops...!",
+          text: "There was a technical error. Please try again in 25 min.",
+          type: "error"
+        });
+      });
 }
 
 setInterval(loadLog,500);
+
+// Clear chat (admin only)
+$("#deleteChat").click(function() {
+
+  swal({
+    title: "Are you sure?",
+    text: "You will not be able to recover this chat log!",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#DD6B55",
+    confirmButtonText: "Yes, delete it!",
+    cancelButtonText: "No, cancel plaese!",
+    closeOnConfirm: false,
+    closeOnCancel: false
+  }, function(isConfirm){
+    if (isConfirm) {
+      $.ajax('/src/ajax.php', {
+        data: {
+          "function":"clear-chatLog"
+        },
+        method: "post",
+        dataType: "json"
+      }).done(function(response){
+        swal({
+          title: response.title,
+          text: response.message,
+          type: response.type
+        });
+      }).fail(function(){
+        swal({
+          title: "Ooops...!",
+          text: "There was a technical error. Please try again in 25 min.",
+          type: "error"
+        });
+      });
+    } else {
+      swal("Cancelled", "The chatLog is still saved :)", "error");
+    } 
+  });
+  
+})
 
 
 

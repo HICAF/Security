@@ -3,7 +3,6 @@
 <!-- TODO Consistency: Gif or GIF? -->
 <?php 
 	require 'src/dbconnect.php';
-	require 'src/functions.php';
 	// grab recaptcha library
 
  ?>

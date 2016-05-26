@@ -1,6 +1,5 @@
 <?php
 require "dbconnect.php";
-require "functions.php";
 require "SMSApi.php";
 
 $function = $_POST['function'];
@@ -28,6 +27,56 @@ if ($function == 'submit-chat-msg') {
 	    fclose($fp);
 	}
 }
+
+if ($function == 'clear-chatLog') {
+	$admin = $_SESSION["admin"];
+
+	$msg = json_decode('{"title":"Ooops...!","message":"Only admin users have access to this. You cheater!","type":"warning" }');
+
+
+	if ($admin == "1" ) {		
+		$fp = fopen("chatLog.html", 'w+');
+	    fwrite($fp,"");
+	    fclose($fp);
+
+	    $msg->message = "The chat has been cleared";
+	    $msg->title = "Done!";
+	    $msg->type= "success";
+	}
+
+	echo json_encode($msg);
+}
+
+if ($function == 'updateChat') {
+	$dom = new DOMDocument();
+	$dom->loadHTML($html);
+	$xpath = new DOMXPath($dom);
+
+	foreach($xpath->query("//div[@class='chat-msg']") as $node) 
+	echo $node->textContent;
+
+
+
+	// $fp = fopen("chatLog.html", 'w+');
+	//  fwrite($fp,"");
+	//  fclose($fp);
+
+
+	// if ($admin == "1" ) {		
+	// 	$fp = fopen("chatLog.html", 'w+');
+	//     fwrite($fp,"");
+	//     fclose($fp);
+
+	//     $msg->message = "The chat has been cleared";
+	//     $msg->title = "Done!";
+	//     $msg->type= "success";
+	// }
+
+	// echo "hi";
+}
+
+
+
 
 
 

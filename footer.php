@@ -9,7 +9,11 @@
 			&copy; what's our name? | 2016
 		</footer>
 
-<?php require 'chat.php'; ?>
+<?php 
+	if (isset($_SESSION['user'])) {
+	 	require 'chat.php';
+	 }  
+ ?>
 
 		<!-- JQuery -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> 
