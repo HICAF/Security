@@ -1,6 +1,5 @@
-<?php	require 'header.php'; ?>
+<?php	require 'header.php'; 
 
-<?php
 	if ($_SESSION['user'] != "") {
 		$dbUsers = $oDb->query("SELECT * FROM users WHERE user_id = '".$_SESSION['user']."'");
 		$aUser = $dbUsers->fetchAll(PDO::FETCH_ASSOC);
@@ -26,10 +25,10 @@
 			<a href="signup.php" class="btn btn-primary">Sign up</a>
 		</div>
 		
-		<h2>Welcome <?php echo $sName; ?></h2>
-		<p>Cat ipsum dolor sit amet, find something else more interesting for meow for food, then when human fills food dish, take a few bites of food and continue meowing. Chase imaginary bugs find empty spot in cupboard and sleep all day favor packaging over toy. </p>
-		<p>Run outside as soon as door open put toy mouse in food bowl run out of litter box at full speed loves cheeseburgers nap all day, but lick the plastic bag.</p>
-		<p>Lie on your belly and purr when you are asleep find something else more interesting, but cat snacks present belly, scratch hand when stroked lie on your belly and purr when you are asleep. Chase mice put toy mouse in food bowl run out of litter box at full speed rub face on everything.</p>
+		<h2>Hi there, <?php echo $sName; ?></h2>
+		<p>This page is dedicated to KEA Fredagsbar's Gif wall - hold on, it's just a school project though. If you have ever been to one of the awesome Friday Bars at L16, you must have seen the Gifwall. </p>
+		<p>You can now contribute to this very wall with your own amazing gifs. Just log in and upload your art piece and we'll add it to the queue. You can also have a little chat with your fellow party enthusiasts. Meet new people, find each other, comment on that super dope gif that just passed on the wall, ...</p>
+		<p>Enjoy!</p>
 		
 		<img alt="Logo" src="img/logo.jpg" class="logo">
 		

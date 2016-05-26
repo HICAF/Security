@@ -1,7 +1,5 @@
-<?php require 'header.php'; ?>
+<?php require 'header.php'; 
 
-	
- <?php
 	if ($_SESSION['user'] != "") {
 		$dbUsers = $oDb->query("SELECT * FROM users WHERE user_id = '".$_SESSION['user']."'");
 		$aUser = $dbUsers->fetchAll(PDO::FETCH_ASSOC);
@@ -11,9 +9,6 @@
 
 		$sFirstName = $aUser[0]['first_name'];
 		$sLastName = $aUser[0]['last_name'];
-
-
-
 
 	} else {
 		echo "
@@ -26,29 +21,38 @@
 	}
  ?>
 
-		<div class="profile-picture"></div>
 		<form method="POST" id="update-form">
-			<label>Username: </label><input type="text" name="username" placeholder="<?php echo $sUsername; ?>"/> <br />
-			<label>First Name: </label><input type="text" name="firstname" placeholder="<?php echo $sFirstName; ?>" /><br />
-			<label>Last Name: </label><input type="text" name="lastname" placeholder="<?php echo $sLastName; ?>"/><br />
-			<label>Email: </label><input type="text" name="email" placeholder="<?php echo $sEmail; ?>" />
-
-	<br /><br />
+			<div class="form-group">
+				<label for="username">Username: </label>
+				<input type="text" name="username" class="form-control" placeholder="<?php echo $sUsername; ?>"/>
+			</div>
+			<div class="form-group">
+				<label for="firstname">First Name: </label>
+				<input type="text" name="firstname" class="form-control" placeholder="<?php echo $sFirstName; ?>" />
+			</div>
+			<div class="form-group">
+				<label for="lastname">Last Name: </label>
+				<input type="text" name="lastname" class="form-control" placeholder="<?php echo $sLastName; ?>"/>
+			</div>
+			<div class="form-group">
+				<label for="email">Email: </label>
+				<input type="text" name="email" class="form-control" placeholder="<?php echo $sEmail; ?>" />
+			</div>
 			
-			<label>Change your password</label><br />
-			<input type="password" name="password" placeholder="New password" value="" /><br />
-			<input type="password" name="passwordcheck" placeholder="Retype password" value="" /><br />
-
-	<br /><br />
-			
+			<div class="form-group">
+				<label for="email">Change your password: </label>
+				<input type="password" class="form-control" name="password" placeholder="New password" value="" /><br />
+				<input type="password" class="form-control" name="passwordcheck" placeholder="Retype password" value="" />
+			</div>
+			<br>
 			<div class="g-recaptcha" data-sitekey="6LdTeyATAAAAAHUaIPdYoCKM3IZIn76wJqxe1Cqs"></div>
-			<input type="submit" id="btn-UpdateProfile" class="btn btn-primary" value="Update my profile">
+			<br>
+			<input type="submit" id="btn-UpdateProfile" class="btn btn-default" value="Update my profile">
 		</form>
 		<div id="responseUpdateProfile"></div>
 		<br>
-		<button type="button" class="btn btn-primary logout">log out</button>
-		<br><br />
-		<button id="btnDeleteUser" type="button" class="btn btn-danger">delete user</button>
+		<button type="button" class="btn btn-primary logout">Log out</button>
+		<button id="btnDeleteUser" type="button" class="btn btn-danger">Delete account</button>
 		<div id="deleteConfirmation">
 		</div>
 		<br />

@@ -25,7 +25,8 @@
 				<input type="checkbox" name="rememberMe" value="true"> Remember me
 			</div>
 			<div class="g-recaptcha" data-sitekey="6LdTeyATAAAAAHUaIPdYoCKM3IZIn76wJqxe1Cqs"></div>
-			<input type="submit" class="btn btn-primary" id="btn-signup" value="Sign Up"><br />
+			<br>
+			<input type="submit" class="btn btn-primary btn-lg" id="btn-signup" value="Sign Up"><br />
 		</form>
 			<a href="login.php">Already signed up?</a>
 		

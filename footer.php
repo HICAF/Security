@@ -1,19 +1,20 @@
 <!-- In here the common footer stuff -->
-<!-- TODO Require in all pages -->
-
 		</div>
 		
 		<footer>
-			<p>whatever else we might need to throw into the footer</p>
-			<p>Bar opening times? Disclaimer? Blabla?</p>
-			&copy; what's our name? | 2016
+			<p>Fredags Bar is opened on Fridays 2pm - 11pm at Lygten 16</p>
+			&copy; MICC | <?php echo date("Y"); ?>
 		</footer>
 
+<<<<<<< HEAD
 <?php 
 	if (isset($_SESSION['user'])) {
 	 	require 'chat.php';
 	 }  
  ?>
+=======
+		<?php require 'chat.php'; ?>
+>>>>>>> 897c6bbc66cea446233d02b1cfd2aa5fa22d6605
 
 		<!-- JQuery -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> 
@@ -25,10 +26,8 @@
 
 		<!-- Latest compiled and minified JavaScript SweetAlert -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script> 
-
-		<script type="text/javascript" src="slick/slick.min.js"></script>
-		<script type="text/javascript" src="js/fileupload.js"></script>
 		
+		<script type="text/javascript" src="js/fileupload.js"></script>
 		<script src="js/script.js"></script>
 	</body>
 
