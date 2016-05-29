@@ -34,7 +34,7 @@ $(".chat-trigger").click(function(){
 $('#submit-msg').keydown(function (e){
     if(e.keyCode == 13 && !event.shiftKey){
       var clientmsg = $(this).val();
-      console.log(clientmsg);
+      // console.log(clientmsg);
       $.ajax('/src/ajax.php', {
         data: {
           "function":"submit-chat-msg", 
@@ -142,7 +142,7 @@ function setCookie(cname, cvalue, exdays) {
   d.setTime(d.getTime() + (exdays*24*60*60*1000));
   var expires = "expires="+d.toUTCString();
   document.cookie = cname + "=" + cvalue + "; " + expires;
-  console.log("Cookie should have been made");
+  // console.log("Cookie should have been made");
 }
 
 function deleteCookie() {
@@ -281,15 +281,17 @@ readCookie();
         type: response.type
       });
 
+        var admin = response.admin;
+        console.log(admin);
       if (response.type != "success") {
 
         var faults = response.fields;
-        var admin = response.admin;
 
         for (var i = 0 ; i < faults.length; i++) {
           $("input[name="+faults[i]+"]").addClass("error");
         } 
       } else {
+
         if (response.rememberMe == "true") {
           var cname = response.cookieName;
           var cvalue = response.cookieValue;
@@ -299,11 +301,10 @@ readCookie();
         } else {
           deleteCookie();
         }
-
       	$(document).on("click",".sa-confirm-button-container .confirm",function(){
 
-      		if (admin == 1) {
-	         	window.location.replace("gifaccepted.php");
+      		if (admin == "1") {
+	         	window.location.replace("gifaccept.php");
       		} else {
 	         	window.location.replace("gifupload.php");
       		}

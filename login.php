@@ -1,4 +1,3 @@
-<?php require 'loginCheck.php'; ?>
 <?php require 'header.php'; ?>
 <?php require 'src/SMSApi.php'; ?>
 
